@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DyplomWork_2.0(WPF)", "DyplomWork_2.0(WPF)\DyplomWork_2.0(WPF).csproj", "{69D5572E-7DA9-4E19-8DEA-FCA5A5DC07AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69D5572E-7DA9-4E19-8DEA-FCA5A5DC07AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69D5572E-7DA9-4E19-8DEA-FCA5A5DC07AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69D5572E-7DA9-4E19-8DEA-FCA5A5DC07AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69D5572E-7DA9-4E19-8DEA-FCA5A5DC07AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A6AD17C-0ECC-4C97-839C-4F086DD3E1D3}
+	EndGlobalSection
+EndGlobal
