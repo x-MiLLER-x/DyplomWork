@@ -20,8 +20,15 @@ namespace DyplomWork_2._0_WPF_
         //connecting to db
         public DB()
         {
-            client = new MongoClient(connectionString);
-            db = client.GetDatabase("dyplomWork");
+            try
+            {
+                client = new MongoClient(connectionString);
+                db = client.GetDatabase("dyplomWork");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error connecting to the database: {ex.Message}");
+            }
         }
         //choosing collection
         public IMongoCollection<BsonDocument> GetCollection()

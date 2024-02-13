@@ -13,13 +13,25 @@
                 <DropShadowEffect BlurRadius="30" Color="LightGray" ShadowDepth="0"/>
             </Border.Effect>
             <StackPanel>
-                <TextBlock Text="Generate meal" FontSize="30" FontWeight="Bold" Margin="0 0 0 20" HorizontalAlignment="Center"/>
-
-                <Button Content="Generate" Margin="0 20" Click="Button_Generate_Click"/>
+                <TextBlock x:Name="textHeader" Text="Generate meal" FontSize="30" FontWeight="Bold" Margin="0 0 0 20" HorizontalAlignment="Center"/>
 
                 <ScrollViewer x:Name="scrollViewer" Height="400" HorizontalScrollBarVisibility="Disabled" Visibility="Collapsed">
-                    <TextBlock x:Name="textGenerated" FontSize="11" Margin="12 0 12 10" TextWrapping="Wrap"/>
+                    <TextBox x:Name="textGenerated" FontSize="11" Margin="12 0 12 10" TextWrapping="Wrap" IsReadOnly="True">
+                        <TextBox.BorderBrush>
+                            <SolidColorBrush Color="#876aba"/>
+                        </TextBox.BorderBrush>
+                        <TextBox.BorderThickness>
+                            <Thickness Bottom="1" Top="1" Left="1" Right="1"/>
+                        </TextBox.BorderThickness>
+                    </TextBox>
                 </ScrollViewer>
+
+
+
+
+                <Button x:Name="buttonGeneration" Content="Generate" Margin="0 20" Click="Button_Generate_Click"/>
+                <Button x:Name="buttonSave" Content="Save" Margin="0 0" Click="buttonSave_Click" Visibility="Collapsed" IsEnabled="False"/>
+                
             </StackPanel>
         </Border>
     </Grid>

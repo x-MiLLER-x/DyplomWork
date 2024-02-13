@@ -56,8 +56,18 @@ namespace DyplomWork_2._0_WPF_
             Height = screenHeight;
             Top = 0;
 
+            textHeader.Text = "Generated meal:";
+            buttonGeneration.Content = "Regenerated";
+
             // Показываем ScrollViewer и TextBlock
+            buttonSave.Visibility = Visibility.Visible;
+            buttonSave.IsEnabled = true;
             scrollViewer.Visibility = Visibility.Visible;
+        }
+
+        private void buttonSave_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
