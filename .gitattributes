@@ -1,0 +1,2 @@
+DyplomWork_2.0(WPF)/bin/Debug/Microsoft.Graph.xml filter=lfs diff=lfs merge=lfs -text
+packages/MongoDB.Libmongocrypt.1.8.2/MongoDB.Libmongocrypt.1.8.2.nupkg filter=lfs diff=lfs merge=lfs -text
