@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\App.xaml
-4791538012
+121495395009
 21524382427
-111023418162
-169-309783322
-AuthWindow.xaml;Generate_Meal_Window.xaml;RegWindow.xaml;UserPageWindow.xaml;
+16-271385019
+171-1356971404
+Assets\Icons.xaml;Controls\MenuItem.xaml;Controls\UserPopup.xaml;Pages\AuthWindow.xaml;Pages\Dashboard.xaml;Pages\Generate_Meal_Window.xaml;Pages\Home.xaml;MainWindow.xaml;Pages\RegWindow.xaml;Pages\UserPageWindow.xaml;Styles\MainStyle.xaml;Themes\DarkTheme.xaml;
 
 False
 

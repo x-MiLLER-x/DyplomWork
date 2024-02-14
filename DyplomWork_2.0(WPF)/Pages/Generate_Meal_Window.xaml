@@ -26,12 +26,9 @@
                     </TextBox>
                 </ScrollViewer>
 
-
-
-
                 <Button x:Name="buttonGeneration" Content="Generate" Margin="0 20" Click="Button_Generate_Click"/>
                 <Button x:Name="buttonSave" Content="Save" Margin="0 0" Click="buttonSave_Click" Visibility="Collapsed" IsEnabled="False"/>
-                
+
             </StackPanel>
         </Border>
     </Grid>

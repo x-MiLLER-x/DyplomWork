@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Desktop\Dyplom\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\
+D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\
 DyplomWork_2._0_WPF_
 none
 false
 DEBUG;TRACE
-D:\Desktop\Dyplom\DyplomWork\DyplomWork_2.0(WPF)\App.xaml
-4791538012
-2-1854942892
-12-1058670456
-169-34400946
-AuthWindow.xaml;Generate_Meal_Window.xaml;RegWindow.xaml;UserPageWindow.xaml;
+D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\App.xaml
+121495395009
+21524382427
+171941493659
+171-1356971404
+Assets\Icons.xaml;Controls\MenuItem.xaml;Controls\UserPopup.xaml;Pages\AuthWindow.xaml;Pages\Dashboard.xaml;Pages\Generate_Meal_Window.xaml;Pages\Home.xaml;MainWindow.xaml;Pages\RegWindow.xaml;Pages\UserPageWindow.xaml;Styles\MainStyle.xaml;Themes\DarkTheme.xaml;
 
 True
 
