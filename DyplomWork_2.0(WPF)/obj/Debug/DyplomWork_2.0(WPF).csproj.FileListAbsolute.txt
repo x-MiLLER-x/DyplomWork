@@ -341,3 +341,13 @@ D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\App.baml
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\MainWindow.baml
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Pages\GenerateMeal.g.cs
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Pages\GenerateMeal.baml
+D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\DyplomWork_2.0(WPF).csproj.SuggestedBindingRedirects.cache
+D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\DyplomWork_2.0(WPF).exe.config
+D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\bin\Debug\Microsoft.Toolkit.Win32.UI.XamlHost.xml
+D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\bin\Debug\Microsoft.Toolkit.Win32.UI.XamlHost.Managed.dll
+D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\bin\Debug\Microsoft.Toolkit.Win32.UI.XamlHost.winmd
+D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\bin\Debug\Microsoft.Toolkit.Wpf.UI.XamlHost.dll
+D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\bin\Debug\Microsoft.Toolkit.Win32.UI.XamlHost.Managed.pdb
+D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\bin\Debug\Microsoft.Toolkit.Win32.UI.XamlHost.Managed.xml
+D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\bin\Debug\Microsoft.Toolkit.Wpf.UI.XamlHost.pdb
+D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\bin\Debug\Microsoft.Toolkit.Wpf.UI.XamlHost.xml

@@ -15,29 +15,29 @@ namespace DyplomWork_2._0_WPF_
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
+        //protected override void OnStartup(StartupEventArgs e)
+        //{
+        //    base.OnStartup(e);
 
-            // Create the main window
-            var AuthWindow = new AuthWindow();
+        //    // Create the main window
+        //    var AuthWindow = new AuthWindow();
 
-            // The path to the file
-            string iconPath = "pack://application:,,,/DyplomWork_2.0(WPF);component/Resources/logo.ico";
+        //    // The path to the file
+        //    string iconPath = "pack://application:,,,/DyplomWork_2.0(WPF);component/Resources/logo.ico";
 
-            // Load an icon from resources
-            var iconStream = Application.GetResourceStream(new Uri(iconPath)).Stream;
+        //    // Load an icon from resources
+        //    var iconStream = Application.GetResourceStream(new Uri(iconPath)).Stream;
 
-            // Set the icon for the application
-            var icon = new System.Drawing.Icon(iconStream);
-            MainWindow.Icon = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
-                icon.Handle,
-                Int32Rect.Empty,
-                BitmapSizeOptions.FromEmptyOptions());
+        //    // Set the icon for the application
+        //    var icon = new System.Drawing.Icon(iconStream);
+        //    MainWindow.Icon = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
+        //        icon.Handle,
+        //        Int32Rect.Empty,
+        //        BitmapSizeOptions.FromEmptyOptions());
 
-            // Launch the main window
-            AuthWindow.Show();
-        }
+        //    // Launch the main window
+        //    AuthWindow.Show();
+        //}
 
 
     }

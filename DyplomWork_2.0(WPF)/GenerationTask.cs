@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using MongoDB.Bson.IO;
 using JsonConvert = Newtonsoft.Json.JsonConvert;
+using System.Diagnostics.Metrics;
 
 namespace DyplomWork_2._0_WPF_
 {
@@ -43,7 +44,8 @@ namespace DyplomWork_2._0_WPF_
             string gender = "Male";
             double weight = 80;
             double height = 180;
-            string response = await OpenAIComplete(apiKey, endpointURL, modelType, maxTokens, temperature, age, gender, weight, height);
+            string country = "Ukraine";
+            string response = await OpenAIComplete(apiKey, endpointURL, modelType, maxTokens, temperature, age, gender, weight, height, country);
 
             TextCompletionResponse question = JsonConvert.DeserializeObject<TextCompletionResponse>(response);
             string answer = question.Choices[0].Text;
@@ -52,14 +54,15 @@ namespace DyplomWork_2._0_WPF_
         }
 
 
-        public static async Task<string> OpenAIComplete(string apikey, string endpoint, string modeltype, int maxtokens, double temp, double age, string gender, double weight, double height)
+        public static async Task<string> OpenAIComplete(string apikey, string endpoint, string modeltype, int maxtokens, double temp, double age, string gender, double weight, double height, string country)
         {
             var requestbody = new
             {
                 model = modeltype,
-                prompt = "I am from Ukraine. I am " + age + ". My gender is " + gender + ". My weight is " + weight + " kg, my height is " + height + " cm. " +
+                prompt = "I am from" + country + ". I am " + age + ". My gender is " + gender + ". My weight is " + weight + " kg, my height is " + height + " cm. " +
                 "Write a very healthy meal for a one week." +
                 "Use the Department of Health's recommendations for calculating calories for the day." +
+                "All calories in each dish must be counted." +
                 "There is should be tipical dishes for my country." +
                 "Write like this:" + "/n" +
                 "Monday:" + "/n" +
