@@ -1,6 +1,8 @@
-﻿using System;
+﻿using DyplomWork_2._0_WPF_.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,63 +28,93 @@ namespace DyplomWork_2._0_WPF_
             InitializeComponent();
             db = new DB();
 
-            //Add PreviewKeyDown event handler
+            // Add PreviewKeyDown event handler
             PreviewKeyDown += Window_PreviewKeyDown;
         }
 
+        // Authorization attempt with button click
         private void Button_Auth_Click(object sender, RoutedEventArgs e)
         {
             string login = textBoxLogin.Text.Trim();
             string pass = PassBox.Password.Trim();
-            
-            if (login.Length < 5)
+
+            // Check data validity
+            if (login.Length < 5 || pass.Length < 5)
             {
-                textBoxLogin.ToolTip = "Minimum count of symbols : 5!";
-                textBoxLogin.Background = Brushes.DarkRed;
-            }
-            else if (pass.Length < 5)
-            {
-                PassBox.ToolTip = "Minimum count of symbols : 5!";
-                PassBox.Background = Brushes.DarkRed;
+                if (login.Length < 5)
+                {
+                    textBoxLogin.ToolTip = "Minimum count of symbols : 5!";
+                    textBoxLogin.Background = Brushes.DarkRed;
+                }
+                else
+                {
+                    textBoxLogin.ToolTip = "";
+                    textBoxLogin.Background = Brushes.Transparent;
+                }
+                if (pass.Length < 5)
+                {
+                    PassBox.ToolTip = "Minimum count of symbols : 5!";
+                    PassBox.Background = Brushes.DarkRed;
+                }
+                else
+                {
+                    PassBox.ToolTip = "";
+                    PassBox.Background = Brushes.Transparent;
+                }
             }
             else
             {
-                textBoxLogin.ToolTip = "";
-                textBoxLogin.Background = Brushes.Transparent;
-                PassBox.ToolTip = "";
-                PassBox.Background = Brushes.Transparent;
-
                 User authUser = new User();
                 authUser.Login = login;
                 authUser.Pass = pass;
 
-                if(db.try_autorization(authUser))
+
+                if (db.try_autorization(authUser))
                 {
-                    //UserPageWindow userPageWindow = new UserPageWindow();
-                    //userPageWindow.Show();
-                    Generate_Meal_Window generateMealWindow = new Generate_Meal_Window();
-                    generateMealWindow.Show();
+                    Pages.MainWindow mainWindow = new MainWindow();
+                    mainWindow.Show();
                     Close();
                 }
-                
             }
         }
 
+        // Authorization attempt by pressing ENTER
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            // Проверяем, была ли нажата клавиша Enter
+            // Check if the Enter key was pressed
             if (e.Key == Key.Enter)
             {
-                // Вызываем метод для авторизации
+                // Call the method for authorization
                 Button_Auth_Click(sender, e);
             }
         }
 
+        // Go to the registration window
         private void Button_Window_Reg_Click(object sender, RoutedEventArgs e)
         {
             RegWindow regWindow = new RegWindow();   
             regWindow.Show();
             Close();
         }
+
+        // Start: Button Close | Restore | Minimize 
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void btnRestore_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+                WindowState = WindowState.Maximized;
+            else
+                WindowState = WindowState.Normal;
+        }
+
+        private void btnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+        // End: Button Close | Restore | Minimize
     }
 }

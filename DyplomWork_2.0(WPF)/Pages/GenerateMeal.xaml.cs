@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson.IO;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,22 +11,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static DyplomWork_2._0_WPF_.GenerationTask;
-using JsonConvert = Newtonsoft.Json.JsonConvert;
 
-namespace DyplomWork_2._0_WPF_
+namespace DyplomWork_2._0_WPF_.Pages
 {
     /// <summary>
-    /// Interaction logic for Generate_Meal_Window.xaml
+    /// Interaction logic for GenerateMeal.xaml
     /// </summary>
-    public partial class Generate_Meal_Window : Window
+    public partial class GenerateMeal : Page
     {
-        public Generate_Meal_Window()
+        public GenerateMeal()
         {
             InitializeComponent();
         }
-
         private async Task<string> Generate_Meal_Recomendations()
         {
             double age = 20;
@@ -51,10 +49,6 @@ namespace DyplomWork_2._0_WPF_
 
             // Получаем текущую высоту экрана
             double screenHeight = SystemParameters.PrimaryScreenHeight;
-
-            // Присваиваем текущую высоту окна
-            Height = screenHeight;
-            Top = 0;
 
             textHeader.Text = "Generated meal:";
             buttonGeneration.Content = "Regenerated";

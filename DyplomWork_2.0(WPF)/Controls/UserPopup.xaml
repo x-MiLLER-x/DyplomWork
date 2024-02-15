@@ -25,7 +25,7 @@
 
     <Grid>
         <!-- Start: Popup User Control -->
-        <Border x:Name="Conatiner" CornerRadius="5" Width="Auto" Height="30" Margin="10 0 0 0" Background="{DynamicResource PrimaryBlueColor}" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Border x:Name="Conatiner" CornerRadius="5" Width="Auto" Height="30" Margin="10 0 0 0" Background="{DynamicResource PrimaryGreenColor}" HorizontalAlignment="Center" VerticalAlignment="Center">
             <!-- Star: Reusable Text -->
             <TextBlock x:Name="PopupText" FontSize="14" FontWeight="Regular" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10 5 10 5"/>
             <!-- Star: Reusable Text -->

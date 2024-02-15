@@ -208,7 +208,7 @@ namespace DyplomWork_2._0_WPF_.Pages
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            fContainer.Navigate(new System.Uri("Pages/Home.xaml", UriKind.RelativeOrAbsolute));
+            fContainer.Navigate(new System.Uri("Pages/GenerateMeal.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void btnDashboard_Click(object sender, RoutedEventArgs e)
