@@ -9,7 +9,15 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="GenerateMeal">
-
+    <Page.Resources>
+        <DataTemplate x:Key="UnitItemTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Value}" />
+                <TextBlock Text=" " />
+                <TextBlock Text="{Binding Unit}" />
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
     <Grid>
         <ProgressBar x:Name="progressBar" Visibility="Collapsed" IsIndeterminate="True" Width="400" Height="10" Margin="0 10" Panel.ZIndex="1" HorizontalAlignment="Center">
             <ProgressBar.Foreground>
@@ -28,13 +36,39 @@
                         <ComboBoxItem Content="Male"/>
                         <ComboBoxItem Content="Female"/>
                     </ComboBox>
-
-                    <ComboBox x:Name="comboBoxAge" materialDesign:HintAssist.Hint="Select age" materialDesign:HintAssist.Foreground="Green" materialDesign:TextFieldAssist.UnderlineBrush="Green" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding Ages}" Width="200"/>
-
-                    <ComboBox x:Name="comboBoxWeight" materialDesign:HintAssist.Hint="Select weight" materialDesign:HintAssist.Foreground="Green" materialDesign:TextFieldAssist.UnderlineBrush="Green" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding Weights}" Width="200"/>
-
-                    <ComboBox x:Name="comboBoxHeight" materialDesign:HintAssist.Hint="Select height" materialDesign:HintAssist.Foreground="Green" materialDesign:TextFieldAssist.UnderlineBrush="Green" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding Heights}" Width="200"/>
-
+                    <ComboBox x:Name="comboBoxAge" materialDesign:HintAssist.Hint="Select age" materialDesign:HintAssist.Foreground="Green" materialDesign:TextFieldAssist.UnderlineBrush="Green" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding Ages}" SelectedValuePath="Value" Width="200">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Value}" />
+                                    <TextBlock Text=" " />
+                                    <TextBlock Text="{Binding Unit}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ComboBox x:Name="comboBoxWeight" materialDesign:HintAssist.Hint="Select weight" materialDesign:HintAssist.Foreground="Green" materialDesign:TextFieldAssist.UnderlineBrush="Green" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding Weights}" SelectedValuePath="Value" Width="200">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Value}" />
+                                    <TextBlock Text=" " />
+                                    <TextBlock Text="{Binding Unit}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ComboBox x:Name="comboBoxHeight" materialDesign:HintAssist.Hint="Select height" materialDesign:HintAssist.Foreground="Green" materialDesign:TextFieldAssist.UnderlineBrush="Green" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding Heights}" SelectedValuePath="Value" Width="200">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Value}" />
+                                    <TextBlock Text=" " />
+                                    <TextBlock Text="{Binding Unit}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                     <ComboBox x:Name="comboBoxCountry" materialDesign:HintAssist.Hint="Select country" materialDesign:HintAssist.Foreground="Green" materialDesign:TextFieldAssist.UnderlineBrush="Green" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding Countries}" Width="200"/>
                     
                     <ScrollViewer x:Name="scrollViewer" Height="200" HorizontalScrollBarVisibility="Disabled" Visibility="Collapsed">

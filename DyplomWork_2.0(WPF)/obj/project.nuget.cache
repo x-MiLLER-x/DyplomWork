@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "CMBTVBLs86bGrLvir5YLIjuLpdwFTXUJ8VwDCwmDMCx+xv6koNOCRzrvm34yvyEBmG4FK6/bNtn/ISYR0U8B5g==",
+  "success": true,
+  "projectFilePath": "D:\\Desktop\\DyplomWork\\DyplomWork_2.0(WPF)\\DyplomWork_2.0(WPF).csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\nitro\\.nuget\\packages\\microsoft.vcrtforwarders.140\\1.0.6\\microsoft.vcrtforwarders.140.1.0.6.nupkg.sha512"
+  ],
+  "logs": []
+}

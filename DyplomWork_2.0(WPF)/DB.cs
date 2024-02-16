@@ -28,6 +28,7 @@ namespace DyplomWork_2._0_WPF_
             catch (Exception ex)
             {
                 MessageBox.Show($"Error connecting to the database: {ex.Message}");
+                return;
             }
         }
         //choosing collection

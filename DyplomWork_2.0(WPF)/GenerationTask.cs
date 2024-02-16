@@ -40,10 +40,10 @@ namespace DyplomWork_2._0_WPF_
 
         public static async Task Main(string[] args)
         {
-            double age = 20;
+            int age = 20;
             string gender = "Male";
-            double weight = 80;
-            double height = 180;
+            int weight = 80;
+            int height = 180;
             string country = "Ukraine";
             string response = await OpenAIComplete(apiKey, endpointURL, modelType, maxTokens, temperature, age, gender, weight, height, country);
 
@@ -54,7 +54,7 @@ namespace DyplomWork_2._0_WPF_
         }
 
 
-        public static async Task<string> OpenAIComplete(string apikey, string endpoint, string modeltype, int maxtokens, double temp, double age, string gender, double weight, double height, string country)
+        public static async Task<string> OpenAIComplete(string apikey, string endpoint, string modeltype, int maxtokens, double temp, int age, string gender, int weight, int height, string country)
         {
             var requestbody = new
             {
