@@ -27,6 +27,22 @@ namespace DyplomWork_2._0_WPF_.Pages
             InitializeComponent();
         }
 
+        private Button selectedButton;
+
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+
+            // Deselect all menu buttons
+            foreach (var button in MenuContainer.Children.OfType<Button>())
+            {
+                button.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#437921"));
+            }
+
+            // Set the background for the current button
+            clickedButton.Background = new SolidColorBrush(Colors.White);
+        }
+
         // Start: Button Close | Restore | Minimize 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
@@ -47,7 +63,7 @@ namespace DyplomWork_2._0_WPF_.Pages
         }
         // End: Button Close | Restore | Minimize
 
-        
+
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -78,6 +94,24 @@ namespace DyplomWork_2._0_WPF_.Pages
                     IsMaximized = true;
                 }
             }
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+
+            // Deselect all menu buttons
+            foreach (var button in MenuContainer.Children.OfType<Button>())
+            {
+                button.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#437921"));
+            }
+
+            // Set the background for the current button
+            clickedButton.Background = new SolidColorBrush(Colors.White);
+
+            AuthWindow authWindow = new AuthWindow();
+            authWindow.Show();
+            Close();
         }
     }
 }

@@ -3,57 +3,41 @@
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-
     <!-- Start: Pop-up Button Style -->
-    <Style x:Key="PopupButtonStyle"
-           TargetType="{x:Type Button}">
-        <Setter Property="Background"
-                Value="Transparent" />
-        <Setter Property="BorderBrush"
-                Value="Transparent" />
-        <Setter Property="Foreground"
-                Value="Transparent" />
-        <Setter Property="BorderThickness"
-                Value="0" />
-        <Setter Property="HorizontalContentAlignment"
-                Value="Center" />
-        <Setter Property="VerticalContentAlignment"
-                Value="Center" />
-        <Setter Property="Padding"
-                Value="0" />
-        <Setter Property="Height"
-                Value="50" />
+    <Style x:Key="PopupButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Foreground" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Height" Value="50"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="border"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            Background="{TemplateBinding Background}"
-                            SnapsToDevicePixels="true">
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="true">
                         <ContentPresenter x:Name="contentPresenter"
-                                          Focusable="False"
-                                          RecognizesAccessKey="True"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          Margin="{TemplateBinding Padding}">
+                                              Focusable="False"
+                                              RecognizesAccessKey="True"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}">
                         </ContentPresenter>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver"
-                                 Value="True">
-                            <Setter Property="Background"
-                                    Value="Transparent" />
-                            <Setter Property="BorderBrush"
-                                    Value="Transparent" />
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
                         </Trigger>
-                        <Trigger Property="IsPressed"
-                                 Value="True">
-                            <Setter Property="Background"
-                                    Value="Transparent" />
-                            <Setter Property="BorderBrush"
-                                    Value="Transparent" />
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -63,56 +47,38 @@
     <!-- End: Pop-up Button Style -->
 
     <!-- Start: iToggleButton Style -->
-    <Style x:Key="iToggleButtonStyle"
-           TargetType="{x:Type ToggleButton}">
-        <Setter Property="Width"
-                Value="30" />
-        <Setter Property="Height"
-                Value="30" />
+    <Style x:Key="iToggleButtonStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="30"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
-                    <Border x:Name="border"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            Background="{TemplateBinding Background}"
-                            SnapsToDevicePixels="True">
-                        <Viewbox Height="20"
-                                 Width="20"
-                                 Margin="0 6 0 0"
-                                 Stretch="UniformToFill">
-                            <Canvas Height="512"
-                                    Width="512">
-                                <Path Data="m32 0h448c17.671875 0 32 14.328125 32 32s-14.328125 32-32 32h-448c-17.671875 0-32-14.328125-32-32s14.328125-32 32-32zm0 0"
-                                      Fill="{DynamicResource FourthIconColor}"
-                                      Margin="0 0 0 0" />
-                                <Path Data="m32 128h448c17.671875 0 32 14.328125 32 32s-14.328125 32-32 32h-448c-17.671875 0-32-14.328125-32-32s14.328125-32 32-32zm0 0"
-                                      Fill="{DynamicResource FourthIconColor}"
-                                      Margin="0 20 0 0" />
-                                <Path Data="m32 256h448c17.671875 0 32 14.328125 32 32s-14.328125 32-32 32h-448c-17.671875 0-32-14.328125-32-32s14.328125-32 32-32zm0 0"
-                                      Fill="{DynamicResource FourthIconColor}"
-                                      Margin="0 40 0 0" />
+                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                        <Viewbox Height="20" Width="20" Margin="0 6 0 0" Stretch="UniformToFill">
+                            <Canvas Height="512" Width="512">
+                                <Path Data="m32 0h448c17.671875 0 32 14.328125 32 32s-14.328125 32-32 32h-448c-17.671875 0-32-14.328125-32-32s14.328125-32 32-32zm0 0" Fill="{DynamicResource FourthIconColor}" Margin="0 0 0 0"/>
+                                <Path Data="m32 128h448c17.671875 0 32 14.328125 32 32s-14.328125 32-32 32h-448c-17.671875 0-32-14.328125-32-32s14.328125-32 32-32zm0 0" Fill="{DynamicResource FourthIconColor}" Margin="0 20 0 0"/>
+                                <Path Data="m32 256h448c17.671875 0 32 14.328125 32 32s-14.328125 32-32 32h-448c-17.671875 0-32-14.328125-32-32s14.328125-32 32-32zm0 0" Fill="{DynamicResource FourthIconColor}" Margin="0 40 0 0"/>
                             </Canvas>
                         </Viewbox>
                     </Border>
                     <ControlTemplate.Triggers>
 
-                        <Trigger Property="IsMouseOver"
-                                 Value="true">
+                        <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Background"
-                                    TargetName="border"
-                                    Value="Transparent" />
+                                        TargetName="border"
+                                        Value="Transparent"/>
                             <Setter Property="BorderBrush"
-                                    TargetName="border"
-                                    Value="#FFFFFF" />
+                                        TargetName="border"
+                                        Value="#FFFFFF"/>
                         </Trigger>
-                        <Trigger Property="IsChecked"
-                                 Value="true">
+                        <Trigger Property="IsChecked" Value="true">
                             <Setter Property="Background"
-                                    TargetName="border"
-                                    Value="Transparent" />
+                                        TargetName="border"
+                                        Value="Transparent"/>
                             <Setter Property="BorderBrush"
-                                    TargetName="border"
-                                    Value="#FFFFFF" />
+                                        TargetName="border"
+                                       Value="#FFFFFF"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -122,56 +88,33 @@
     <!-- End: iToggleButton Style -->
 
     <!-- Start: Button Close | Restore | Minimize -->
-    <Style x:Key="IconButtonsStyle"
-           TargetType="{x:Type Button}">
-        <Setter Property="Background"
-                Value="Transparent" />
-        <Setter Property="Cursor"
-                Value="Hand" />
-        <Setter Property="BorderThickness"
-                Value="0" />
-        <Setter Property="Height"
-                Value="25" />
-        <Setter Property="Width"
-                Value="25" />
+    <Style x:Key="IconButtonsStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="Width" Value="25"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Name="bd"
-                            CornerRadius="5"
-                            Background="{TemplateBinding Background}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                        <Path Name="ico"
-                              Data="{TemplateBinding Content}"
-                              Fill="{DynamicResource PrimaryTextColor}"
-                              Height="10"
-                              Width="10"
-                              Stretch="Uniform" />
+                    <Border Name="bd" CornerRadius="5" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Path Name="ico" Data="{TemplateBinding Content}" Fill="{DynamicResource SecundaryBackgroundColor}" Height="10" Width="10" Stretch="Uniform"/>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver"
-                                 Value="True">
-                            <Setter Property="Background"
-                                    Value="{DynamicResource SecundaryBackgroundColor}" />
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}" />
+                            <Setter TargetName="ico" Property="Fill" Value="#ffffff"/>
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsMouseOver"
-                                           Value="True" />
-                                <Condition Property="Tag"
-                                           Value="IsCloseButton" />
+                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="Tag" Value="IsCloseButton"/>
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background"
-                                    Value="{DynamicResource btnClose}" />
-                            <Setter TargetName="ico"
-                                    Property="Fill"
-                                    Value="{DynamicResource PrimaryTexColor}" />
+                            <Setter Property="Background" Value="{DynamicResource btnClose}"/>
+                            <Setter TargetName="ico" Property="Fill" Value="#ffffff"/>
                         </MultiTrigger>
-                        <Trigger Property="IsPressed"
-                                 Value="True">
-                            <Setter TargetName="ico"
-                                    Property="Fill"
-                                    Value="{DynamicResource PrimaryTexColor}" />
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ico" Property="Fill" Value="#ffffff"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -181,63 +124,40 @@
     <!-- End: Button Close | Restore | Minimize -->
 
     <!-- Start: Click Button  -->
-    <Style x:Key="DarkGreenButtonStyle"
-           TargetType="Button">
-        <Setter Property="MinHeight"
-                Value="30" />
-        <Setter Property="Background"
-                Value="{DynamicResource SecundaryBackgroundColor}" />
-        <Setter Property="Foreground"
-                Value="White" />
-        <Setter Property="BorderBrush"
-                Value="{DynamicResource SecundaryBackgroundColor}" />
-        <Setter Property="BorderThickness"
-                Value="1" />
-        <Setter Property="Padding"
-                Value="15 8" />
-        <Setter Property="HorizontalAlignment"
-                Value="Stretch" />
-        <Setter Property="VerticalAlignment"
-                Value="Center" />
-        <Setter Property="Cursor"
-                Value="Hand" />
+    <Style x:Key="DarkGreenButtonStyle" TargetType="Button">
+        <Setter Property="MinHeight" Value="30"/>
+        <Setter Property="Background" Value="{DynamicResource SecundaryBackgroundColor}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SecundaryBackgroundColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="15 8"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Grid>
                         <Border x:Name="border"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="5">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                              VerticalAlignment="Center" />
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver"
-                                 Value="True">
-                            <Setter TargetName="border"
-                                    Property="Background"
-                                    Value="#32502E" />
-                            <Setter Property="Foreground"
-                                    Value="White" />
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#32502E"/>
+                            <Setter Property="Foreground" Value="White"/>
                         </Trigger>
-                        <Trigger Property="IsPressed"
-                                 Value="True">
-                            <Setter TargetName="border"
-                                    Property="Background"
-                                    Value="#2A4727" />
-                            <Setter Property="Foreground"
-                                    Value="White" />
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#2A4727"/>
+                            <Setter Property="Foreground" Value="White"/>
                         </Trigger>
-                        <Trigger Property="IsEnabled"
-                                 Value="False">
-                            <Setter TargetName="border"
-                                    Property="Background"
-                                    Value="#BDC3C7" />
-                            <Setter Property="Foreground"
-                                    Value="#7F8C8D" />
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="#BDC3C7"/>
+                            <Setter Property="Foreground" Value="#7F8C8D"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -246,80 +166,65 @@
     </Style>
     <!-- End: Click Button  -->
 
-    <!-- Start: Flat Button  -->
-    <Style x:Key="DarkGreenFlatButtonStyle"
-           TargetType="Button">
-        <Setter Property="MinHeight"
-                Value="30" />
-        <Setter Property="Width"
-                Value="60" />
-        <Setter Property="Background"
-                Value="White" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource SecundaryBackgroundColor}" />
-        <Setter Property="HorizontalAlignment"
-                Value="Stretch" />
-        <Setter Property="VerticalAlignment"
-                Value="Center" />
-        <Setter Property="Cursor"
-                Value="Hand" />
+    <!-- Start: Click Button  -->
+    <Style x:Key="DarkGreenFlatButtonStyle" TargetType="Button">
+        <Setter Property="MinHeight" Value="30"/>
+        <Setter Property="Width" Value="60"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="{DynamicResource SecundaryBackgroundColor}"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="border"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="5">
-                        <ContentPresenter HorizontalAlignment="Center"
-                                          VerticalAlignment="Center" />
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver"
-                                 Value="True">
-                            <Setter TargetName="border"
-                                    Property="Background"
-                                    Value="#32502E" />
-                            <Setter Property="Foreground"
-                                    Value="White" />
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#32502E"/>
+                            <Setter Property="Foreground" Value="White"/>
                         </Trigger>
-                        <Trigger Property="IsPressed"
-                                 Value="True">
-                            <Setter TargetName="border"
-                                    Property="Background"
-                                    Value="#2A4727" />
-                            <Setter Property="Foreground"
-                                    Value="White" />
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#2A4727"/>
+                            <Setter Property="Foreground" Value="White"/>
                         </Trigger>
-                        <Trigger Property="IsEnabled"
-                                 Value="False">
-                            <Setter TargetName="border"
-                                    Property="Background"
-                                    Value="#BDC3C7" />
-                            <Setter Property="Foreground"
-                                    Value="#7F8C8D" />
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="#BDC3C7"/>
+                            <Setter Property="Foreground" Value="#7F8C8D"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-    <!-- End: Flat Button  -->
-
 
     <!-- Start: menuButton Style -->
 
     <Style x:Key="menuButton"
            TargetType="Button">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Margin" Value="15 0 15 20" />
-        <Setter Property="Height" Value="50" />
-        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="Margin"
+                Value="15 0 15 20" />
+        <Setter Property="Height"
+                Value="50" />
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" CornerRadius="10" BorderThickness="1" BorderBrush="Transparent">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Border Background="{TemplateBinding Background}"
+                            CornerRadius="10"
+                            BorderThickness="1"
+                            BorderBrush="Transparent">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -473,6 +378,4 @@
     </Style>
 
     <!-- End: addButton Style -->
-
-
 </ResourceDictionary>
