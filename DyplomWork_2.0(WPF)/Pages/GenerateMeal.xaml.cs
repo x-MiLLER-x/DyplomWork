@@ -175,7 +175,7 @@ namespace DyplomWork_2._0_WPF_.Pages
             TextCompletionResponse question = JsonConvert.DeserializeObject<TextCompletionResponse>(response);
             string answer = question.Choices[0].Text;
 
-            return answer.TrimStart('\n', '\r');
+            return answer.TrimStart('\n', ' ');
 
         }
         private void buttonSave_Click(object sender, RoutedEventArgs e)

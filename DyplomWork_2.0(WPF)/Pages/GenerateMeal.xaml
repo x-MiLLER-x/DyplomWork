@@ -24,7 +24,7 @@
                 <SolidColorBrush Color="DarkGreen" />
             </ProgressBar.Foreground>
         </ProgressBar>
-        <Border CornerRadius="5" Background="{DynamicResource SecundaryBackgroundColor}">
+        <Border CornerRadius="25" Background="{DynamicResource SecundaryBackgroundColor}">
             <Border x:Name="blurBackground" MinWidth="400" Margin="15" Background="White" VerticalAlignment="Center" Padding="30" MaxWidth="550" CornerRadius="20">
                 <Border.Effect>
                     <effects:BlurEffect Radius="0"/>

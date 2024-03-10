@@ -329,8 +329,6 @@ D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Controls\UserPopup.g.cs
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Assets\Icons.baml
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Controls\MenuItem.baml
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Controls\UserPopup.baml
-D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Pages\Home.g.cs
-D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Pages\Home.baml
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Themes\DarkTheme.baml
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\MainWindow.g.cs
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\App.g.cs

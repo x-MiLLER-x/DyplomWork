@@ -23,13 +23,16 @@ namespace DyplomWork_2._0_WPF_
     public partial class AuthWindow : Window
     {
         DB db;
+        public User authUser { get; private set; }
         public AuthWindow()
         {
             InitializeComponent();
+            authUser = new User();
             db = new DB();
 
             // Add PreviewKeyDown event handler
             PreviewKeyDown += Window_PreviewKeyDown;
+
         }
 
         // Authorization attempt with button click
@@ -64,14 +67,13 @@ namespace DyplomWork_2._0_WPF_
             }
             else
             {
-                User authUser = new User();
                 authUser.Login = login;
                 authUser.Pass = pass;
 
 
                 if (db.try_autorization(authUser))
                 {
-                    Pages.MainWindow mainWindow = new MainWindow();
+                    Pages.MainWindow mainWindow = new MainWindow(authUser);
                     mainWindow.Show();
                     Close();
                 }

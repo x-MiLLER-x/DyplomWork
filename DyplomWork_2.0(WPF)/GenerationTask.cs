@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using MongoDB.Bson.IO;
 using JsonConvert = Newtonsoft.Json.JsonConvert;
 using System.Diagnostics.Metrics;
+using Microsoft.Graph.Models;
 
 namespace DyplomWork_2._0_WPF_
 {
@@ -36,24 +37,6 @@ namespace DyplomWork_2._0_WPF_
         public static int maxTokens = 1000;
         public static double temperature = 1.0f;
 
-
-
-        public static async Task Main(string[] args)
-        {
-            int age = 20;
-            string gender = "Male";
-            int weight = 80;
-            int height = 180;
-            string country = "Ukraine";
-            string response = await OpenAIComplete(apiKey, endpointURL, modelType, maxTokens, temperature, age, gender, weight, height, country);
-
-            TextCompletionResponse question = JsonConvert.DeserializeObject<TextCompletionResponse>(response);
-            string answer = question.Choices[0].Text;
-
-            Console.WriteLine(answer);
-        }
-
-
         public static async Task<string> OpenAIComplete(string apikey, string endpoint, string modeltype, int maxtokens, double temp, int age, string gender, int weight, int height, string country)
         {
             var requestbody = new
@@ -73,7 +56,6 @@ namespace DyplomWork_2._0_WPF_
                 max_tokens = maxtokens,
                 temperature = temp
             };
-
             // Serialize the payload to JSON
             string jsonPayload = JsonConvert.SerializeObject(requestbody);
 

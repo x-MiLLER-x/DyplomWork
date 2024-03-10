@@ -37,6 +37,7 @@ namespace DyplomWork_2._0_WPF_
             string pass = PassBox.Password.Trim();
             string pass2 = PassBox2.Password.Trim();
             string email = textBoxEmail.Text.Trim().ToLower();
+            bool comboBoxSavingData = false;
 
             // Check data validity
             if (login.Length < 5 || pass.Length < 5 || pass2 != pass || email.Length < 5 || !email.Contains("@") || !email.Contains("."))
@@ -85,17 +86,21 @@ namespace DyplomWork_2._0_WPF_
             else
             {
                 // Create a new user
-                User user = new User(login, pass, email);
+                User user = new User(login, pass, email, comboBoxSavingData);
+                user.Login = login; 
+                user.Pass = pass;   
+                user.Email = email;
+                user.ComboBoxSavingData = comboBoxSavingData;
 
-                MessageBox.Show("Registration was successful!");
-
-                // 
+                // registration
                 if (db.try_registration(user))
                 {
+                    MessageBox.Show("Registration was successful!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
                     AuthWindow authWindow = new AuthWindow();
                     authWindow.Show();
                     Close();
                 }
+                
             }
         }
 
