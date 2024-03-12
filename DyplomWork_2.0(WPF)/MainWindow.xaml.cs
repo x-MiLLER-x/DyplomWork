@@ -24,6 +24,8 @@ using DnsClient;
 using Microsoft.Graph.Models;
 using MongoDB.Bson;
 using System.Collections;
+using System.Diagnostics.Metrics;
+using System.Windows.Media.Media3D;
 
 namespace DyplomWork_2._0_WPF_.Pages
 {
@@ -165,7 +167,7 @@ namespace DyplomWork_2._0_WPF_.Pages
             TextCompletionResponse question = JsonConvert.DeserializeObject<TextCompletionResponse>(response);
             string answer = question.Choices[0].Text;
 
-            return answer.TrimStart('\n', '\r', ' ');
+            return answer.TrimStart('\n', '\r', ' ', '.', ',');
 
         }
         private async void Button_Generate_Click(object sender, RoutedEventArgs e)
@@ -173,53 +175,27 @@ namespace DyplomWork_2._0_WPF_.Pages
             // Check if all required data is selected
             bool isValid = true;
 
-            if (comboBoxAge.SelectedValue == null)
+            // Checking if all required data is selected
+            if (comboBoxAge.SelectedValue == null || comboBoxGender.SelectedValue == null ||
+                comboBoxHeight.SelectedValue == null || comboBoxWeight.SelectedValue == null ||
+                comboBoxCountry.SelectedValue == null)
             {
-                comboBoxAge.BorderBrush = Brushes.Red;
+                // Set a red frame for unselected elements
+                comboBoxAge.BorderBrush = comboBoxAge.SelectedValue == null ? Brushes.Red : null;
+                comboBoxGender.BorderBrush = comboBoxGender.SelectedValue == null ? Brushes.Red : null;
+                comboBoxHeight.BorderBrush = comboBoxHeight.SelectedValue == null ? Brushes.Red : null;
+                comboBoxWeight.BorderBrush = comboBoxWeight.SelectedValue == null ? Brushes.Red : null;
+                comboBoxCountry.BorderBrush = comboBoxCountry.SelectedValue == null ? Brushes.Red : null;
+
                 isValid = false;
             }
             else
             {
+                // Clearing frames for selected elements
                 comboBoxAge.ClearValue(Border.BorderBrushProperty);
-            }
-
-            if (comboBoxGender.SelectedValue == null)
-            {
-                comboBoxGender.BorderBrush = Brushes.Red;
-                isValid = false;
-            }
-            else
-            {
                 comboBoxGender.ClearValue(Border.BorderBrushProperty);
-            }
-
-            if (comboBoxHeight.SelectedValue == null)
-            {
-                comboBoxHeight.BorderBrush = Brushes.Red;
-                isValid = false;
-            }
-            else
-            {
                 comboBoxHeight.ClearValue(Border.BorderBrushProperty);
-            }
-
-            if (comboBoxWeight.SelectedValue == null)
-            {
-                comboBoxWeight.BorderBrush = Brushes.Red;
-                isValid = false;
-            }
-            else
-            {
                 comboBoxWeight.ClearValue(Border.BorderBrushProperty);
-            }
-
-            if (comboBoxCountry.SelectedValue == null)
-            {
-                comboBoxCountry.BorderBrush = Brushes.Red;
-                isValid = false;
-            }
-            else
-            {
                 comboBoxCountry.ClearValue(Border.BorderBrushProperty);
             }
 
@@ -231,10 +207,29 @@ namespace DyplomWork_2._0_WPF_.Pages
 
             ShowProgressBar(true); // Show ProgressBar before performing the operation
 
-            // Pass the generated code to the field
-            textGenerated.Text = await Generate_Meal_Recomendations();
+            try
+            {
+                // Get the generated text
+                string generatedText = await Generate_Meal_Recomendations();
 
-            ShowProgressBar(false); // Hide the ProgressBar after the operation is complete
+                // Update the text field with the generated text
+                textGenerated.Text = generatedText;
+
+                // Generate an image using the generated text as a prompt
+                var generatedImageResponse = await GenerateImageFromPrompt(generatedText);
+
+                // Set the image as background
+                SetBackgroundImage(imagePage1, generatedImageResponse.ImageUrl);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to generate or load image: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                // Скрываем ProgressBar после завершения операции
+                ShowProgressBar(false);
+            }
 
             textHeader.Text = "Generated meal:";
             buttonGeneration.Content = "Regenerated";
@@ -253,6 +248,30 @@ namespace DyplomWork_2._0_WPF_.Pages
             scrollViewer.Visibility = Visibility.Visible;
 
         }
+        private async Task<ImageGenerationResponse> GenerateImageFromPrompt(string prompt)
+        {
+            // Вызываем функцию генерации изображения, передавая сгенерированный текст в качестве prompt
+            var imageResponse = await GenerationTask.OpenAIGenerateImage(GenerationTask.apiKey, prompt, "dall-e-3", 1, "1024x1024");
+
+            // Выводим URL изображения в консоль
+            Console.WriteLine("Generated image URL: " + imageResponse.ImageUrl);
+
+
+            return imageResponse;
+        }
+
+        private void SetBackgroundImage(ImageBrush targetBrush, string imageUrl)
+        {
+            // Создаем новый объект BitmapImage
+            BitmapImage bitmapImage = new BitmapImage();
+            // Устанавливаем источник изображения по URL
+            bitmapImage.BeginInit();
+            bitmapImage.UriSource = new Uri(imageUrl);
+            bitmapImage.EndInit();
+            // Устанавливаем изображение в качестве источника для ImageBrush
+            targetBrush.ImageSource = bitmapImage;
+        }
+
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
             /////////////////////////////////////////////////////////////////////////////////////////
