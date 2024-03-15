@@ -35,8 +35,12 @@ namespace DyplomWork_2._0_WPF_.Pages
 
     public partial class MainWindow : Window
     {
+        // Start: Loaded data
+        #region LoadedData
         DB db = new DB();
         private User authUser;
+        private string generatedMealText;
+        private string generatedImageUrl;
 
         // Define collections
         public ObservableCollection<Measurement> Ages { get; set; }
@@ -55,8 +59,7 @@ namespace DyplomWork_2._0_WPF_.Pages
             comboBoxHeightPageUser.SelectionChanged += ComboBox_SelectionChanged;
             comboBoxCountryPageUser.SelectionChanged += ComboBox_SelectionChanged;
 
-            // Initialize collections
-
+            // Initialize collections. Ages, Weight, Height, Countries
             Ages = new ObservableCollection<Measurement>(Enumerable.Range(18, 103).Select(value => new Measurement { Value = value, Unit = "years" }));
 
             Weights = new ObservableCollection<Measurement>(Enumerable.Range(20, 181).Select(value => new Measurement { Value = value, Unit = "kg" }));
@@ -88,11 +91,11 @@ namespace DyplomWork_2._0_WPF_.Pages
             comboBoxHeightPageUser.ItemsSource = Heights;
             comboBoxCountryPageUser.ItemsSource = countries;
 
+            // Update data
             Loaded += MainWindow_Loaded;
         }
 
-        // Start: Loaded data
-        #region LoadedData
+        // Update data of user from DB. Update data in comboBoxes
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             authUser = db.updateUsersDataFromDB(authUser);
@@ -105,6 +108,7 @@ namespace DyplomWork_2._0_WPF_.Pages
             }
         }
 
+        // Change every comboBoxes data by data from user
         private void UpdateComboBoxesWithData(User user)
         {
             SetComboBoxSelectedItem(comboBoxGender, user.Gender);
@@ -123,12 +127,14 @@ namespace DyplomWork_2._0_WPF_.Pages
             UpdateSaveButtonState();
         }
 
+        // Replacement for int data from database
         private void SetComboBoxSelectedItem(ComboBox comboBox, int value, string unit)
         {
             var measurement = comboBox.Items.OfType<Measurement>().FirstOrDefault(item => item.Value == value && item.Unit == unit);
             comboBox.SelectedItem = measurement;
         }
 
+        // Replacement for string data from database
         private void SetComboBoxSelectedItem(ComboBox comboBox, string value)
         {
             var comboBoxItem = comboBox.Items.OfType<ComboBoxItem>().FirstOrDefault(item => item.Content?.ToString() == value);
@@ -136,17 +142,21 @@ namespace DyplomWork_2._0_WPF_.Pages
         }
         #endregion LoadedData
         // End: Loaded data
-        
+
         // Start: Page 2
         #region page 2
+        // Progress bar appearance
         private void ShowProgressBar(bool show)
         {
             progressBar.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
             blurBackground.Effect.SetValue(System.Windows.Media.Effects.BlurEffect.RadiusProperty, show ? 10.0 : 0.0);
             scrollViewer.Visibility = show ? Visibility.Collapsed : Visibility.Visible;
         }
+
+        // Generate meal
         private async Task<string> Generate_Meal_Recomendations()
         {
+            // Take the data from comboboxes
             Measurement selectedAge = comboBoxAge.SelectedItem as Measurement;
             int age = selectedAge?.Value ?? 0;
 
@@ -160,6 +170,8 @@ namespace DyplomWork_2._0_WPF_.Pages
             int height = selectedHeight?.Value ?? 0;
             string country = comboBoxCountry.SelectedValue.ToString();
 
+
+            // Generate answer
             GenerationTask generationTask = new GenerationTask();
 
             string response = await OpenAIComplete(apiKey, endpointURL, modelType, maxTokens, temperature, age, gender, weight, height, country);
@@ -167,9 +179,12 @@ namespace DyplomWork_2._0_WPF_.Pages
             TextCompletionResponse question = JsonConvert.DeserializeObject<TextCompletionResponse>(response);
             string answer = question.Choices[0].Text;
 
+            // Return answer
             return answer.TrimStart('\n', '\r', ' ', '.', ',');
 
         }
+
+        // Button_Generate_Click action
         private async void Button_Generate_Click(object sender, RoutedEventArgs e)
         {
             // Check if all required data is selected
@@ -210,16 +225,18 @@ namespace DyplomWork_2._0_WPF_.Pages
             try
             {
                 // Get the generated text
-                string generatedText = await Generate_Meal_Recomendations();
+                generatedMealText = await Generate_Meal_Recomendations();
 
-                // Update the text field with the generated text
-                textGenerated.Text = generatedText;
+                // Put the generated text in textGenerated field
+                textGenerated.Text = generatedMealText;
 
-                // Generate an image using the generated text as a prompt
-                var generatedImageResponse = await GenerateImageFromPrompt(generatedText);
+                // Generate an image by the generated text as a prompt
+                var generatedImageResponse = await GenerateImageFromPrompt(generatedMealText);
+
+                generatedImageUrl = generatedImageResponse.ImageUrl;
 
                 // Set the image as background
-                SetBackgroundImage(imagePage1, generatedImageResponse.ImageUrl);
+                SetBackgroundImage(imagePage1, generatedImageUrl);
             }
             catch (Exception ex)
             {
@@ -227,7 +244,7 @@ namespace DyplomWork_2._0_WPF_.Pages
             }
             finally
             {
-                // Скрываем ProgressBar после завершения операции
+                // Hiding the ProgressBar after the operation is completed
                 ShowProgressBar(false);
             }
 
@@ -248,34 +265,30 @@ namespace DyplomWork_2._0_WPF_.Pages
             scrollViewer.Visibility = Visibility.Visible;
 
         }
+
+        // Generate image func
         private async Task<ImageGenerationResponse> GenerateImageFromPrompt(string prompt)
         {
-            // Вызываем функцию генерации изображения, передавая сгенерированный текст в качестве prompt
+            // call the image generation function, passing the generated text as prompt
             var imageResponse = await GenerationTask.OpenAIGenerateImage(GenerationTask.apiKey, prompt, "dall-e-3", 1, "1024x1024");
-
-            // Выводим URL изображения в консоль
-            Console.WriteLine("Generated image URL: " + imageResponse.ImageUrl);
-
 
             return imageResponse;
         }
 
+        // Substitution generated image
         private void SetBackgroundImage(ImageBrush targetBrush, string imageUrl)
         {
-            // Создаем новый объект BitmapImage
+            // Create a new BitmapImage object
             BitmapImage bitmapImage = new BitmapImage();
-            // Устанавливаем источник изображения по URL
+            // Set the image source by URL
             bitmapImage.BeginInit();
             bitmapImage.UriSource = new Uri(imageUrl);
             bitmapImage.EndInit();
-            // Устанавливаем изображение в качестве источника для ImageBrush
+            // Set the image as the source for the ImageBrush
             targetBrush.ImageSource = bitmapImage;
         }
 
-        private void buttonSave_Click(object sender, RoutedEventArgs e)
-        {
-            /////////////////////////////////////////////////////////////////////////////////////////
-        }
+        // buttonChangeData_Click action
         private void buttonChangeData_Click(object sender, RoutedEventArgs e)
         {
             // Hide ScrollViewer and TextBlock
@@ -293,9 +306,49 @@ namespace DyplomWork_2._0_WPF_.Pages
             buttonChangeData.IsEnabled = false;
             scrollViewer.Visibility = Visibility.Collapsed;
         }
+
+        // buttonSave_Click action
+        private void buttonSave_Click(object sender, RoutedEventArgs e)
+        {
+            authUser.AnySavedMeal = true;
+            // Check if generatedMealText and generatedImageUrl are not null or empty
+            if (!string.IsNullOrEmpty(generatedMealText) && !string.IsNullOrEmpty(generatedImageUrl))
+            {
+                // Add generated meal text and image URL to user's lists
+                authUser.Meals.Add(generatedMealText);
+                authUser.Images.Add(generatedImageUrl);
+               
+                // Save user details
+                if (db.try_saving_details(authUser))
+                {
+                    MessageBox.Show("Saving data was successful!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // Hide ScrollViewer and TextBlock
+                    blurBackground.Height = 350;
+                    textHeader.Text = "Generate meal";
+                    buttonGeneration.Content = "Generate";
+                    comboBoxGender.Visibility = Visibility.Visible;
+                    comboBoxAge.Visibility = Visibility.Visible;
+                    comboBoxWeight.Visibility = Visibility.Visible;
+                    comboBoxHeight.Visibility = Visibility.Visible;
+                    comboBoxCountry.Visibility = Visibility.Visible;
+                    buttonSave.Visibility = Visibility.Hidden;
+                    buttonSave.IsEnabled = false;
+                    buttonChangeData.Visibility = Visibility.Hidden;
+                    buttonChangeData.IsEnabled = false;
+                    scrollViewer.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    MessageBox.Show("Failed to save data.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No generated data to save.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         #endregion page 2
         // End: Page 2
-
 
         // Start: Page 3
         #region page 3
@@ -304,53 +357,27 @@ namespace DyplomWork_2._0_WPF_.Pages
             // Check if all required data is selected
             bool isValid = true;
 
-            if (comboBoxAgePageUser.SelectedValue == null)
+            // Checking if all required data is selected
+            if (comboBoxAgePageUser.SelectedValue == null || comboBoxGenderPageUser.SelectedValue == null ||
+                comboBoxHeightPageUser.SelectedValue == null || comboBoxWeightPageUser.SelectedValue == null ||
+                comboBoxCountryPageUser.SelectedValue == null)
             {
-                comboBoxAgePageUser.BorderBrush = Brushes.Red;
+                // Set a red frame for unselected elements
+                comboBoxAgePageUser.BorderBrush = comboBoxAgePageUser.SelectedValue == null ? Brushes.Red : null;
+                comboBoxGenderPageUser.BorderBrush = comboBoxGenderPageUser.SelectedValue == null ? Brushes.Red : null;
+                comboBoxHeightPageUser.BorderBrush = comboBoxHeightPageUser.SelectedValue == null ? Brushes.Red : null;
+                comboBoxWeightPageUser.BorderBrush = comboBoxWeightPageUser.SelectedValue == null ? Brushes.Red : null;
+                comboBoxCountryPageUser.BorderBrush = comboBoxCountryPageUser.SelectedValue == null ? Brushes.Red : null;
+
                 isValid = false;
             }
             else
             {
+                // Clearing frames for selected elements
                 comboBoxAgePageUser.ClearValue(Border.BorderBrushProperty);
-            }
-
-            if (comboBoxGenderPageUser.SelectedValue == null)
-            {
-                comboBoxGenderPageUser.BorderBrush = Brushes.Red;
-                isValid = false;
-            }
-            else
-            {
                 comboBoxGenderPageUser.ClearValue(Border.BorderBrushProperty);
-            }
-
-            if (comboBoxHeightPageUser.SelectedValue == null)
-            {
-                comboBoxHeightPageUser.BorderBrush = Brushes.Red;
-                isValid = false;
-            }
-            else
-            {
                 comboBoxHeightPageUser.ClearValue(Border.BorderBrushProperty);
-            }
-
-            if (comboBoxWeightPageUser.SelectedValue == null)
-            {
-                comboBoxWeightPageUser.BorderBrush = Brushes.Red;
-                isValid = false;
-            }
-            else
-            {
                 comboBoxWeightPageUser.ClearValue(Border.BorderBrushProperty);
-            }
-
-            if (comboBoxCountryPageUser.SelectedValue == null)
-            {
-                comboBoxCountryPageUser.BorderBrush = Brushes.Red;
-                isValid = false;
-            }
-            else
-            {
                 comboBoxCountryPageUser.ClearValue(Border.BorderBrushProperty);
             }
 
@@ -420,8 +447,6 @@ namespace DyplomWork_2._0_WPF_.Pages
 
         #endregion page 3
         // End: Page 3
-
-
 
         // Start: Menu
         #region Menu
@@ -552,13 +577,7 @@ namespace DyplomWork_2._0_WPF_.Pages
         {
             WindowState = WindowState.Minimized;
         }
-
-
         #endregion Button Close | Restore | Minimize 
         // End: Button Close | Restore | Minimize
-
-
-
-
     }
 }

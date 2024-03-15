@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
@@ -13,7 +14,9 @@ namespace DyplomWork_2._0_WPF_
     {
         private string login, pass, email, gender, country;
         private int  age, weight, height;
-        private bool comboBoxSavingData;
+        private bool comboBoxSavingData, anySavedMeal;
+        public List<string> meals { get; set; }
+        public List<string> images { get; set; }
 
         public string Login
         {
@@ -67,9 +70,30 @@ namespace DyplomWork_2._0_WPF_
         {
             get { return comboBoxSavingData; }
             set { comboBoxSavingData = value; }
+        }        
+        public bool AnySavedMeal
+        {
+            get { return anySavedMeal; }
+            set { anySavedMeal = value; }
         }
 
-        public User() { }
+        public List<string> Meals
+        {
+            get { return meals; }
+            set { meals = value; }
+        }
+
+        public List<string> Images
+        {
+            get { return images; }
+            set { images = value; }
+        }
+
+        public User()
+        {
+            Meals = new List<string>();
+            Images = new List<string>();
+        }
 
         public User(string login, string pass, string email, bool comboBoxSavingData) 
         {
@@ -88,6 +112,21 @@ namespace DyplomWork_2._0_WPF_
             this.weight = weight;
             this.height = height;
             this.country = country;
+        }
+        public User(string login, string pass, string email, string gender, int age, int weight, int height, string country, bool comboBoxSavingData, bool anySavedMeal, List<string> meals, List<string> images)
+        {
+            this.login = login;
+            this.pass = pass;
+            this.email = email;
+            this.gender = gender;
+            this.age = age;
+            this.weight = weight;
+            this.height = height;
+            this.country = country;
+            this.meals = meals;
+            this.images = images;
+            this.comboBoxSavingData = comboBoxSavingData;
+            this.anySavedMeal = anySavedMeal;
         }
     }
 }
