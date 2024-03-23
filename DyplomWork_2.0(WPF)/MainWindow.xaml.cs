@@ -26,6 +26,7 @@ using MongoDB.Bson;
 using System.Collections;
 using System.Diagnostics.Metrics;
 using System.Windows.Media.Media3D;
+using Amazon.Auth.AccessControlPolicy;
 
 namespace DyplomWork_2._0_WPF_.Pages
 {
@@ -47,11 +48,21 @@ namespace DyplomWork_2._0_WPF_.Pages
         public ObservableCollection<Measurement> Weights { get; set; }
         public ObservableCollection<Measurement> Heights { get; set; }
 
+        // Добавьте свойство Images
+        public ObservableCollection<ImageItem> ImageItems { get; set; }
+
         public MainWindow(User user)
         {
             InitializeComponent();
             // data of authUser from authWindow
             authUser = user;
+
+            // Инициализируйте коллекцию изображений
+            ImageItems = new ObservableCollection<ImageItem>();
+
+
+            // Привязываем коллекцию ImageItems к ItemsSource вашего ItemsControl в XAML
+            DataContext = this;
 
             comboBoxAgePageUser.SelectionChanged += ComboBox_SelectionChanged;
             comboBoxGenderPageUser.SelectionChanged += ComboBox_SelectionChanged;
@@ -93,6 +104,39 @@ namespace DyplomWork_2._0_WPF_.Pages
 
             // Update data
             Loaded += MainWindow_Loaded;
+            LoadImages();
+        }
+
+        private async void LoadImages()
+        {
+            ImageItems.Clear();
+            for (int i = 0; i < authUser.Images.Count; i++)
+            {
+                string imageUrl = authUser.Images[i];
+                string meal = authUser.Meals.ElementAtOrDefault(i); // Получаем блюдо из коллекции Meals с тем же индексом
+
+                // Create a new BitmapImage object
+                BitmapImage bitmapImage = await Convert_url_to_bitmapImage(imageUrl);
+                if (bitmapImage != null)
+                {
+                    ImageItems.Add(new ImageItem { Image = bitmapImage, Meal = meal }); // Устанавливаем URL и блюдо для ImageItem
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to load image: {imageUrl}"); // Output to console for debugging
+                }
+            }
+        }
+        private void SetBackgroundImage(ImageBrush targetBrush, string imageUrl)
+        {
+            // Create a new BitmapImage object
+            BitmapImage bitmapImage = new BitmapImage();
+            // Set the image source by URL
+            bitmapImage.BeginInit();
+            bitmapImage.UriSource = new Uri(imageUrl);
+            bitmapImage.EndInit();
+            // Set the image as the source for the ImageBrush
+            targetBrush.ImageSource = bitmapImage;
         }
 
         // Update data of user from DB. Update data in comboBoxes
@@ -142,6 +186,168 @@ namespace DyplomWork_2._0_WPF_.Pages
         }
         #endregion LoadedData
         // End: Loaded data
+
+        // Start: Page 4
+        #region page 4
+        private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            // Получаем элемент System.Windows.Controls.Image, на который было нажатие
+            System.Windows.Controls.Image clickedImage = (System.Windows.Controls.Image)sender;
+
+            // Получаем родительский элемент StackPanel
+            StackPanel parentStackPanel = (StackPanel)clickedImage.Parent;
+
+            // Получаем DataContext StackPanel, чтобы получить ImageItem
+            ImageItem clickedImageItem = (ImageItem)parentStackPanel.DataContext;
+
+            // Обновляем содержимое TextBox
+            savedMeals.Text = clickedImageItem.Meal;
+
+            // Прячем imagePanel и показываем scrollViewerSavedMeals
+            imagePanel.Visibility = Visibility.Hidden;
+            scrollViewerSavedMeals.Visibility = Visibility.Visible;
+            scrollViewerSavedImages.Visibility = Visibility.Hidden;
+            buttonBack.Visibility = Visibility.Visible;
+        }
+    
+        private void buttonBack_Click(object sender, RoutedEventArgs e)
+        {
+            // Прячем imagePanel и показываем scrollViewerSavedMeals
+            imagePanel.Visibility = Visibility.Visible;
+            scrollViewerSavedMeals.Visibility = Visibility.Hidden;
+            scrollViewerSavedImages.Visibility = Visibility.Visible;
+            buttonBack.Visibility = Visibility.Hidden;
+        }
+        #endregion page 4
+        // End: Page 4
+
+        // Start: Menu
+        #region Menu
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+
+            // Deselect all menu buttons
+            foreach (var button in MenuContainer.Children.OfType<Button>())
+            {
+                button.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#437921"));
+            }
+
+            // Set the background for the current button
+            clickedButton.Background = new SolidColorBrush(Colors.White);
+        }
+        private void savedMealButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoadImages();
+            Button clickedButton = (Button)sender;
+
+            // Deselect all menu buttons
+            foreach (var button in MenuContainer.Children.OfType<Button>())
+            {
+                button.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#437921"));
+            }
+
+            // Set the background for the current button
+            clickedButton.Background = new SolidColorBrush(Colors.White);
+
+            // Update data from DB
+            authUser = db.updateUsersDataFromDB(authUser);
+
+        }
+        private void btnUser_Click(object sender, RoutedEventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+
+            // Deselect all menu buttons
+            foreach (var button in MenuContainer.Children.OfType<Button>())
+            {
+                button.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#437921"));
+            }
+
+            // Set the background for the current button
+            clickedButton.Background = new SolidColorBrush(Colors.White);
+
+            authUser = db.updateUsersDataFromDB(authUser);
+
+            // Check if comboBoxSavingData flag is set to true
+            if (authUser.ComboBoxSavingData)
+            {
+                // Automatically filling comboboxes with authUser data
+                UpdateComboBoxesWithData(authUser);
+            }
+        }
+        private void btnGenerate_Click(object sender, RoutedEventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+
+            // Deselect all menu buttons
+            foreach (var button in MenuContainer.Children.OfType<Button>())
+            {
+                button.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#437921"));
+            }
+
+            // Set the background for the current button
+            clickedButton.Background = new SolidColorBrush(Colors.White);
+
+            authUser = db.updateUsersDataFromDB(authUser);
+
+            // Check if comboBoxSavingData flag is set to true
+            if (authUser.ComboBoxSavingData)
+            {
+                // Automatically filling comboboxes with authUser data
+                UpdateComboBoxesWithData(authUser);
+            }
+        }
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+        }
+
+        bool IsMaximized = false;
+
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                if (IsMaximized)
+                {
+                    this.WindowState = WindowState.Normal;
+                    this.Width = 1080;
+                    this.Height = 720;
+
+                    IsMaximized = false;
+                }
+                else
+                {
+                    this.WindowState = WindowState.Maximized;
+
+                    IsMaximized = true;
+                }
+            }
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+
+            // Deselect all menu buttons
+            foreach (var button in MenuContainer.Children.OfType<Button>())
+            {
+                button.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#437921"));
+            }
+
+            // Set the background for the current button
+            clickedButton.Background = new SolidColorBrush(Colors.White);
+
+            AuthWindow authWindow = new AuthWindow();
+            authWindow.Show();
+            Close();
+        }
+        #endregion Menu
+        // End: Menu
 
         // Start: Page 2
         #region page 2
@@ -236,7 +442,8 @@ namespace DyplomWork_2._0_WPF_.Pages
                 generatedImageUrl = generatedImageResponse.ImageUrl;
 
                 // Set the image as background
-                SetBackgroundImage(imagePage1, generatedImageUrl);
+                SetBackgroundImage(imagePage2, generatedImageUrl);
+                borderPage2.Background = new SolidColorBrush(Colors.Transparent);
             }
             catch (Exception ex)
             {
@@ -276,7 +483,7 @@ namespace DyplomWork_2._0_WPF_.Pages
         }
 
         // Substitution generated image
-        private void SetBackgroundImage(ImageBrush targetBrush, string imageUrl)
+        private Task<BitmapImage> Convert_url_to_bitmapImage(string imageUrl)
         {
             // Create a new BitmapImage object
             BitmapImage bitmapImage = new BitmapImage();
@@ -284,8 +491,7 @@ namespace DyplomWork_2._0_WPF_.Pages
             bitmapImage.BeginInit();
             bitmapImage.UriSource = new Uri(imageUrl);
             bitmapImage.EndInit();
-            // Set the image as the source for the ImageBrush
-            targetBrush.ImageSource = bitmapImage;
+            return Task.FromResult(bitmapImage);
         }
 
         // buttonChangeData_Click action
@@ -317,7 +523,7 @@ namespace DyplomWork_2._0_WPF_.Pages
                 // Add generated meal text and image URL to user's lists
                 authUser.Meals.Add(generatedMealText);
                 authUser.Images.Add(generatedImageUrl);
-               
+
                 // Save user details
                 if (db.try_saving_details(authUser))
                 {
@@ -448,115 +654,6 @@ namespace DyplomWork_2._0_WPF_.Pages
         #endregion page 3
         // End: Page 3
 
-        // Start: Menu
-        #region Menu
-        private void MenuButton_Click(object sender, RoutedEventArgs e)
-        {
-            Button clickedButton = (Button)sender;
-
-            // Deselect all menu buttons
-            foreach (var button in MenuContainer.Children.OfType<Button>())
-            {
-                button.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#437921"));
-            }
-
-            // Set the background for the current button
-            clickedButton.Background = new SolidColorBrush(Colors.White);
-        }
-        private void btnUser_Click(object sender, RoutedEventArgs e)
-        {
-            Button clickedButton = (Button)sender;
-
-            // Deselect all menu buttons
-            foreach (var button in MenuContainer.Children.OfType<Button>())
-            {
-                button.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#437921"));
-            }
-
-            // Set the background for the current button
-            clickedButton.Background = new SolidColorBrush(Colors.White);
-
-            authUser = db.updateUsersDataFromDB(authUser);
-
-            // Check if comboBoxSavingData flag is set to true
-            if (authUser.ComboBoxSavingData)
-            {
-                // Automatically filling comboboxes with authUser data
-                UpdateComboBoxesWithData(authUser);
-            }
-        }
-        private void btnGenerate_Click(object sender, RoutedEventArgs e)
-        {
-            Button clickedButton = (Button)sender;
-
-            // Deselect all menu buttons
-            foreach (var button in MenuContainer.Children.OfType<Button>())
-            {
-                button.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#437921"));
-            }
-
-            // Set the background for the current button
-            clickedButton.Background = new SolidColorBrush(Colors.White);
-
-            authUser = db.updateUsersDataFromDB(authUser);
-
-            // Check if comboBoxSavingData flag is set to true
-            if (authUser.ComboBoxSavingData)
-            {
-                // Automatically filling comboboxes with authUser data
-                UpdateComboBoxesWithData(authUser);
-            }
-        }
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                this.DragMove();
-            }
-        }
-
-        bool IsMaximized = false;
-
-        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ClickCount == 2)
-            {
-                if (IsMaximized)
-                {
-                    this.WindowState = WindowState.Normal;
-                    this.Width = 1080;
-                    this.Height = 720;
-
-                    IsMaximized = false;
-                }
-                else
-                {
-                    this.WindowState = WindowState.Maximized;
-
-                    IsMaximized = true;
-                }
-            }
-        }
-
-        private void LogoutButton_Click(object sender, RoutedEventArgs e)
-        {
-            Button clickedButton = (Button)sender;
-
-            // Deselect all menu buttons
-            foreach (var button in MenuContainer.Children.OfType<Button>())
-            {
-                button.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#437921"));
-            }
-
-            // Set the background for the current button
-            clickedButton.Background = new SolidColorBrush(Colors.White);
-
-            AuthWindow authWindow = new AuthWindow();
-            authWindow.Show();
-            Close();
-        }
-        #endregion Menu
-        // End: Menu
 
         // Start: Button Close | Restore | Minimize 
         #region Button Close | Restore | Minimize 
@@ -577,6 +674,7 @@ namespace DyplomWork_2._0_WPF_.Pages
         {
             WindowState = WindowState.Minimized;
         }
+
         #endregion Button Close | Restore | Minimize 
         // End: Button Close | Restore | Minimize
     }

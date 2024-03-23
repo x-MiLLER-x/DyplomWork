@@ -93,10 +93,10 @@ namespace DyplomWork_2._0_WPF_
             var jsonResponse = JsonConvert.DeserializeObject<dynamic>(responseContent);
             string imageUrl = jsonResponse.data[0].url;
 
-            Console.WriteLine("Generated image URL:");
-            Console.WriteLine(imageUrl);
-            Console.WriteLine("Response from API OpenAI:");
-            Console.WriteLine(responseContent);
+            //Console.WriteLine("Generated image URL:");
+            //Console.WriteLine(imageUrl);
+            //Console.WriteLine("Response from API OpenAI:");
+            //Console.WriteLine(responseContent);
 
             // Return the ImageGenerationResponse object with the image URL
             return new ImageGenerationResponse { ImageUrl = imageUrl };

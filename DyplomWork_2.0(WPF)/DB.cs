@@ -60,6 +60,7 @@ namespace DyplomWork_2._0_WPF_
 
             us.Email = userDocuments[0]["email"].AsString;
             us.ComboBoxSavingData = userDocuments[0]["comboBoxSavingData"].AsBoolean;
+            us.AnySavedMeal = userDocuments[0]["anySavedMeal"].AsBoolean;
             if (us.ComboBoxSavingData)
             {
                 us.Gender = userDocuments[0]["gender"].AsString;
@@ -68,7 +69,11 @@ namespace DyplomWork_2._0_WPF_
                 us.Height = userDocuments[0]["height"].AsInt32;
                 us.Country = userDocuments[0]["country"].AsString;
             }
-
+            if (us.AnySavedMeal)
+            {
+                us.Meals = userDocuments[0]["meals"].AsBsonArray.Select(x => x.AsString).ToList();
+                us.Images = userDocuments[0]["images"].AsBsonArray.Select(x => x.AsString).ToList();
+            }
             return us;
         }
 
@@ -148,64 +153,6 @@ namespace DyplomWork_2._0_WPF_
             collection.ReplaceOne(filter_login, user);
             return true;
         }
-
-        //replace user (change user in db)
-        //public bool try_saving_meals_and_images(User us)
-        //{
-        //    String loginUser = us.Login;
-        //    String passUser = us.Pass;
-        //    String gender = us.Gender;
-        //    int age = us.Age;
-        //    int weight = us.Weight;
-        //    int height = us.Height;
-        //    String country = us.Country;
-        //    List<string> meals = us.Meals;  
-        //    List<string> images = us.Images; 
-
-        //    DB db = new DB();
-
-        //    //Get access to the "users" collection
-        //    IMongoCollection<BsonDocument> collection = db.GetCollection();
-
-        //    //Create a filter document to check the same login or email
-        //    BsonDocument filter_login = new BsonDocument("login", loginUser);
-
-        //    //To select data, use the find() function
-        //    List<BsonDocument> userDocuments;
-        //    try
-        //    {
-        //        userDocuments = collection.Find(filter_login).ToList();
-        //    }
-        //    catch (Exception)
-        //    {
-        //        MessageBox.Show("Error connecting to the database.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        //        return false;
-        //    }
-
-        //    us.Email = userDocuments[0]["email"].AsString;
-        //    String emailUser = us.Email;
-
-        //    // Create a new user.
-        //    BsonDocument user = new BsonDocument
-        //    {
-        //        {"login", loginUser},
-        //        {"pass", passUser },
-        //        {"email", emailUser},
-        //        {"gender", gender },
-        //        {"age", age },
-        //        {"weight", weight },
-        //        {"height", height },
-        //        {"country", country },
-        //        {"comboBoxSavingData", us.ComboBoxSavingData },
-        //        {"anySavedMeal", us.AnySavedMeal },
-        //        {"meals", new BsonArray(meals)}, 
-        //        {"images", new BsonArray(images)} 
-        //};
-
-        //    //Replace in DB
-        //    collection.ReplaceOne(filter_login, user);
-        //    return true;
-        //}
 
         //get user
         public bool try_autorization(User us)

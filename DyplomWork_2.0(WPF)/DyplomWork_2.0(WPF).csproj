@@ -238,6 +238,7 @@
     <Compile Include="Controls\UserPopup.xaml.cs">
       <DependentUpon>UserPopup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ImageItem.cs" />
     <Compile Include="Measurement.cs" />
     <Compile Include="Pages\AuthWindow.xaml.cs">
       <DependentUpon>AuthWindow.xaml</DependentUpon>
