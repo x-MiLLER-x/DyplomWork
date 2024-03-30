@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
@@ -10,6 +9,7 @@ namespace DyplomWork_2._0_WPF_
     {
         private static readonly HttpClient client = new HttpClient();
 
+        // Supporting Classes
         public class Choice
         {
             public string Text { get; set; }
@@ -20,6 +20,12 @@ namespace DyplomWork_2._0_WPF_
             public Choice[] Choices { get; set; }
         }
 
+        public class ImageGenerationResponse
+        {
+            public string ImageUrl { get; set; }
+        }
+
+        // Supporting Data
         public static string apiKey = "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";
         public static string endpointURL = "https://api.openai.com/v1/completions";
         public static string imageGenerationURL = "https://api.openai.com/v1/images/generations";
@@ -27,6 +33,7 @@ namespace DyplomWork_2._0_WPF_
         public static int maxTokens = 1000;
         public static double temperature = 1.0f;
 
+        // Generating meal
         public static async Task<string> OpenAIComplete(string apikey, string endpoint, string modeltype, int maxtokens, double temp, int age, string gender, int weight, int height, string country)
         {
             var requestbody = new
@@ -61,12 +68,7 @@ namespace DyplomWork_2._0_WPF_
 
             return responseContent;
         }
-
-        public class ImageGenerationResponse
-        {
-            public string ImageUrl { get; set; }
-        }
-
+        // Generating image
         public static async Task<ImageGenerationResponse> OpenAIGenerateImage(string apikey, string prompt, string modelType, int numImages, string imageSize)
         {
             var requestbody = new

@@ -1,18 +1,12 @@
-﻿using MongoDB.Driver.Core.Configuration;
-using MongoDB.Driver;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Effects;
-using System.Windows.Navigation;
 using static DyplomWork_2._0_WPF_.GenerationTask;
 
 namespace DyplomWork_2._0_WPF_.Pages

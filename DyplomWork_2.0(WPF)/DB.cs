@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System.Windows;
-using DnsClient;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-using System.Diagnostics.Metrics;
-using System.Windows.Media.Media3D;
-using Microsoft.Graph.Models;
 
 namespace DyplomWork_2._0_WPF_
 {

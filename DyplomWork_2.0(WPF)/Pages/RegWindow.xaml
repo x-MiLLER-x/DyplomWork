@@ -9,7 +9,8 @@
         Title="DyplomWork" Height="600" Width="800"
         WindowStartupLocation="CenterScreen" WindowStyle="None"
         Background="Transparent" AllowsTransparency="True"
-        ResizeMode="NoResize" FontFamily="Poppins">
+        ResizeMode="NoResize" FontFamily="Poppins"
+        Icon="/Resources/logo.ico">
     
     <Grid Background="{DynamicResource PrimaryBackgroundColor}">
         <Border 

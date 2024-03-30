@@ -1,32 +1,17 @@
-﻿using MongoDB.Driver.Core.Configuration;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using static DyplomWork_2._0_WPF_.GenerationTask;
-using System.IO;
-using DnsClient;
-using Microsoft.Graph.Models;
-using MongoDB.Bson;
-using System.Collections;
-using System.Diagnostics.Metrics;
-using System.Windows.Media.Media3D;
-using Amazon.Auth.AccessControlPolicy;
+using System.Windows.Media.Animation;
 
 namespace DyplomWork_2._0_WPF_.Pages
 {
@@ -48,20 +33,19 @@ namespace DyplomWork_2._0_WPF_.Pages
         public ObservableCollection<Measurement> Weights { get; set; }
         public ObservableCollection<Measurement> Heights { get; set; }
 
-        // Добавьте свойство Images
         public ObservableCollection<ImageItem> ImageItems { get; set; }
 
         public MainWindow(User user)
         {
             InitializeComponent();
-            // data of authUser from authWindow
+            // Set data to authUser from authWindow
             authUser = user;
 
-            // Инициализируйте коллекцию изображений
+            // Initializing an Image Collection
             ImageItems = new ObservableCollection<ImageItem>();
 
 
-            // Привязываем коллекцию ImageItems к ItemsSource вашего ItemsControl в XAML
+            // Binding the ImageItems collection to ItemsControl in XAML
             DataContext = this;
 
             comboBoxAgePageUser.SelectionChanged += ComboBox_SelectionChanged;
@@ -103,7 +87,7 @@ namespace DyplomWork_2._0_WPF_.Pages
             comboBoxCountryPageUser.ItemsSource = countries;
 
             // Update data
-            Loaded += MainWindow_Loaded;
+            Loaded += MainWindow_Loaded_Update;
             LoadImages();
         }
 
@@ -139,8 +123,29 @@ namespace DyplomWork_2._0_WPF_.Pages
             targetBrush.ImageSource = bitmapImage;
         }
 
+        // Window loading animation
+        private void Window_Loading_Animation(object sender, RoutedEventArgs e)
+        {
+            // Creating Animation
+            DoubleAnimation translateYAnimation = new DoubleAnimation
+            {
+                To = 0,
+                Duration = TimeSpan.FromSeconds(0.5)
+            };
+
+            // Setting Animation Target
+            Storyboard.SetTargetName(translateYAnimation, "page1");
+            Storyboard.SetTargetProperty(translateYAnimation, new PropertyPath("(Border.RenderTransform).(TranslateTransform.Y)"));
+
+            // Creating and running animation
+            Storyboard storyboard = new Storyboard();
+            storyboard.Children.Add(translateYAnimation);
+            storyboard.Begin(this);
+        }
+
+
         // Update data of user from DB. Update data in comboBoxes
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        private void MainWindow_Loaded_Update(object sender, RoutedEventArgs e)
         {
             authUser = db.updateUsersDataFromDB(authUser);
 
@@ -186,40 +191,6 @@ namespace DyplomWork_2._0_WPF_.Pages
         }
         #endregion LoadedData
         // End: Loaded data
-
-        // Start: Page 4
-        #region page 4
-        private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            // Получаем элемент System.Windows.Controls.Image, на который было нажатие
-            System.Windows.Controls.Image clickedImage = (System.Windows.Controls.Image)sender;
-
-            // Получаем родительский элемент StackPanel
-            StackPanel parentStackPanel = (StackPanel)clickedImage.Parent;
-
-            // Получаем DataContext StackPanel, чтобы получить ImageItem
-            ImageItem clickedImageItem = (ImageItem)parentStackPanel.DataContext;
-
-            // Обновляем содержимое TextBox
-            savedMeals.Text = clickedImageItem.Meal;
-
-            // Прячем imagePanel и показываем scrollViewerSavedMeals
-            imagePanel.Visibility = Visibility.Hidden;
-            scrollViewerSavedMeals.Visibility = Visibility.Visible;
-            scrollViewerSavedImages.Visibility = Visibility.Hidden;
-            buttonBack.Visibility = Visibility.Visible;
-        }
-    
-        private void buttonBack_Click(object sender, RoutedEventArgs e)
-        {
-            // Прячем imagePanel и показываем scrollViewerSavedMeals
-            imagePanel.Visibility = Visibility.Visible;
-            scrollViewerSavedMeals.Visibility = Visibility.Hidden;
-            scrollViewerSavedImages.Visibility = Visibility.Visible;
-            buttonBack.Visibility = Visibility.Hidden;
-        }
-        #endregion page 4
-        // End: Page 4
 
         // Start: Menu
         #region Menu
@@ -348,6 +319,27 @@ namespace DyplomWork_2._0_WPF_.Pages
         }
         #endregion Menu
         // End: Menu
+
+        // Start: Page 1
+        #region page 1
+        private void LearnMore_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // URL, который нужно открыть
+            string url = "https://www.nutritionix.com/database/common-foods";
+
+            try
+            {
+                // Открыть URL в браузере по умолчанию
+                System.Diagnostics.Process.Start(url);
+            }
+            catch (Exception ex)
+            {
+                // Обработка ошибок, если не удалось открыть URL
+                MessageBox.Show($"Error opening URL: {ex.Message}");
+            }
+        }
+        #endregion page 1
+        // End: Page 1
 
         // Start: Page 2
         #region page 2
@@ -527,7 +519,7 @@ namespace DyplomWork_2._0_WPF_.Pages
                 // Save user details
                 if (db.try_saving_details(authUser))
                 {
-                    MessageBox.Show("Saving data was successful!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Saving data was successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     // Hide ScrollViewer and TextBlock
                     blurBackground.Height = 350;
                     textHeader.Text = "Generate meal";
@@ -612,8 +604,8 @@ namespace DyplomWork_2._0_WPF_.Pages
 
             if (db.try_saving_details(authUser))
             {
-                Loaded += MainWindow_Loaded;
-                MessageBox.Show("Saving data was successful!", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                Loaded += MainWindow_Loaded_Update;
+                MessageBox.Show("Saving data was successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             buttonSavePageUser.IsEnabled = false;
         }
@@ -654,6 +646,39 @@ namespace DyplomWork_2._0_WPF_.Pages
         #endregion page 3
         // End: Page 3
 
+        // Start: Page 4
+        #region page 4
+        private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            // Получаем элемент System.Windows.Controls.Image, на который было нажатие
+            System.Windows.Controls.Image clickedImage = (System.Windows.Controls.Image)sender;
+
+            // Получаем родительский элемент StackPanel
+            StackPanel parentStackPanel = (StackPanel)clickedImage.Parent;
+
+            // Получаем DataContext StackPanel, чтобы получить ImageItem
+            ImageItem clickedImageItem = (ImageItem)parentStackPanel.DataContext;
+
+            // Обновляем содержимое TextBox
+            savedMeals.Text = clickedImageItem.Meal;
+
+            // Прячем imagePanel и показываем scrollViewerSavedMeals
+            imagePanel.Visibility = Visibility.Hidden;
+            scrollViewerSavedMeals.Visibility = Visibility.Visible;
+            scrollViewerSavedImages.Visibility = Visibility.Hidden;
+            buttonBack.Visibility = Visibility.Visible;
+        }
+    
+        private void buttonBack_Click(object sender, RoutedEventArgs e)
+        {
+            // Прячем imagePanel и показываем scrollViewerSavedMeals
+            imagePanel.Visibility = Visibility.Visible;
+            scrollViewerSavedMeals.Visibility = Visibility.Hidden;
+            scrollViewerSavedImages.Visibility = Visibility.Visible;
+            buttonBack.Visibility = Visibility.Hidden;
+        }
+        #endregion page 4
+        // End: Page 4
 
         // Start: Button Close | Restore | Minimize 
         #region Button Close | Restore | Minimize 
@@ -674,6 +699,7 @@ namespace DyplomWork_2._0_WPF_.Pages
         {
             WindowState = WindowState.Minimized;
         }
+
 
         #endregion Button Close | Restore | Minimize 
         // End: Button Close | Restore | Minimize
