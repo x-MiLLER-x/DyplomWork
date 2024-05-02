@@ -106,7 +106,7 @@ namespace DyplomWork_2._0_WPF_
             String emailUser = us.Email;
             BsonDocument user = new BsonDocument { };
             // Create a new user.
-            if (us.AnySavedMeal)
+            if (us.AnySavedMeal == true && us.ComboBoxSavingData == true)
             {
                 user = new BsonDocument
             {
@@ -124,7 +124,7 @@ namespace DyplomWork_2._0_WPF_
                 {"images", new BsonArray(images)}
         };
             }
-            else
+            else if(us.AnySavedMeal == false && us.ComboBoxSavingData == true)
             {
                 user = new BsonDocument
             {
@@ -136,6 +136,30 @@ namespace DyplomWork_2._0_WPF_
                 {"weight", weight },
                 {"height", height },
                 {"country", country },
+                {"comboBoxSavingData", us.ComboBoxSavingData },
+                {"anySavedMeal", us.AnySavedMeal },
+        };
+            }
+            else if (us.AnySavedMeal == true && us.ComboBoxSavingData == false)
+            {
+                user = new BsonDocument
+            {
+                {"login", loginUser},
+                {"pass", passUser },
+                {"email", emailUser},
+                {"comboBoxSavingData", us.ComboBoxSavingData },
+                {"anySavedMeal", us.AnySavedMeal },
+                {"meals", new BsonArray(meals)},
+                {"images", new BsonArray(images)}
+        };
+            }
+            else 
+            {
+                user = new BsonDocument
+            {
+                {"login", loginUser},
+                {"pass", passUser },
+                {"email", emailUser},
                 {"comboBoxSavingData", us.ComboBoxSavingData },
                 {"anySavedMeal", us.AnySavedMeal },
         };
@@ -194,6 +218,8 @@ namespace DyplomWork_2._0_WPF_
             String passUser = us.Pass;
             String emailUser = us.Email;
             bool comboBoxSavingData = us.ComboBoxSavingData;
+            bool anySavedMeal = us.AnySavedMeal;
+
 
             DB db = new DB();
 
@@ -234,7 +260,8 @@ namespace DyplomWork_2._0_WPF_
                 {"login", loginUser},
                 {"pass", passUser },
                 {"email", emailUser},
-                {"comboBoxSavingData", comboBoxSavingData }
+                {"comboBoxSavingData", comboBoxSavingData },
+                {"anySavedMeal", anySavedMeal }
             };
 
             //Insert in DB

@@ -269,13 +269,6 @@ namespace DyplomWork_2._0_WPF_.Pages
                 UpdateComboBoxesWithData(authUser);
             }
         }
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                this.DragMove();
-            }
-        }
 
         bool IsMaximized = false;
 
@@ -324,18 +317,21 @@ namespace DyplomWork_2._0_WPF_.Pages
         #region page 1
         private void LearnMore_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            // URL, который нужно открыть
-            string url = "https://www.nutritionix.com/database/common-foods";
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                // URL, который нужно открыть
+                string url = "https://www.nutritionix.com/database/common-foods";
 
-            try
-            {
-                // Открыть URL в браузере по умолчанию
-                System.Diagnostics.Process.Start(url);
-            }
-            catch (Exception ex)
-            {
-                // Обработка ошибок, если не удалось открыть URL
-                MessageBox.Show($"Error opening URL: {ex.Message}");
+                try
+                {
+                    // Открыть URL в браузере по умолчанию
+                    System.Diagnostics.Process.Start(url);
+                }
+                catch (Exception ex)
+                {
+                    // Обработка ошибок, если не удалось открыть URL
+                    MessageBox.Show($"Error opening URL: {ex.Message}");
+                }
             }
         }
         #endregion page 1
@@ -372,7 +368,7 @@ namespace DyplomWork_2._0_WPF_.Pages
             // Generate answer
             GenerationTask generationTask = new GenerationTask();
 
-            string response = await OpenAIComplete(apiKey, endpointURL, modelType, maxTokens, temperature, age, gender, weight, height, country);
+            string response = await OpenAIComplete(apiKey, endpointURL, modelText, maxTokens, temperature, age, gender, weight, height, country);
 
             TextCompletionResponse question = JsonConvert.DeserializeObject<TextCompletionResponse>(response);
             string answer = question.Choices[0].Text;
@@ -469,7 +465,7 @@ namespace DyplomWork_2._0_WPF_.Pages
         private async Task<ImageGenerationResponse> GenerateImageFromPrompt(string prompt)
         {
             // call the image generation function, passing the generated text as prompt
-            var imageResponse = await GenerationTask.OpenAIGenerateImage(GenerationTask.apiKey, prompt, "dall-e-3", 1, "1024x1024");
+            var imageResponse = await GenerationTask.OpenAIGenerateImage(GenerationTask.apiKey, prompt, GenerationTask.modelImage, GenerationTask.numImages, GenerationTask.imageSize);
 
             return imageResponse;
         }

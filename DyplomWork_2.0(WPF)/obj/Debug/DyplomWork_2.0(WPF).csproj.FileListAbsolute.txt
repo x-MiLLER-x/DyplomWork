@@ -319,10 +319,8 @@ D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\DyplomWork_2.0(WPF).exe
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\DyplomWork_2.0(WPF).pdb
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Pages\AuthWindow.g.cs
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Pages\RegWindow.g.cs
-D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Pages\UserPageWindow.g.cs
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Pages\AuthWindow.baml
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Pages\RegWindow.baml
-D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Pages\UserPageWindow.baml
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Styles\MainStyle.baml
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Controls\MenuItem.g.cs
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Controls\UserPopup.g.cs
@@ -334,8 +332,6 @@ D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\MainWindow.g.cs
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\App.g.cs
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\App.baml
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\MainWindow.baml
-D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Pages\GenerateMeal.g.cs
-D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\Pages\GenerateMeal.baml
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\DyplomWork_2.0(WPF).csproj.SuggestedBindingRedirects.cache
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\obj\Debug\DyplomWork_2.0(WPF).exe.config
 D:\Desktop\DyplomWork\DyplomWork_2.0(WPF)\bin\Debug\Microsoft.Toolkit.Win32.UI.XamlHost.xml

@@ -27,6 +27,7 @@ namespace DyplomWork_2._0_WPF_
             string pass2 = PassBox2.Password.Trim();
             string email = textBoxEmail.Text.Trim().ToLower();
             bool comboBoxSavingData = false;
+            bool anySavedMeal = false;
 
             // Check data validity
             if (login.Length < 5 || pass.Length < 5 || pass2 != pass || email.Length < 5 || !email.Contains("@") || !email.Contains("."))
@@ -80,6 +81,7 @@ namespace DyplomWork_2._0_WPF_
                 user.Pass = pass;   
                 user.Email = email;
                 user.ComboBoxSavingData = comboBoxSavingData;
+                user.AnySavedMeal = anySavedMeal;
 
                 // registration
                 if (db.try_registration(user))

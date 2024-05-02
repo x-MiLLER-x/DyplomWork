@@ -45,7 +45,7 @@
         </DataTemplate>
     </Window.Resources>
 
-    <Border Background="#ffffff" CornerRadius="25" MouseDown="Border_MouseDown" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+    <Border Background="#ffffff" CornerRadius="25" MouseLeftButtonDown="Border_MouseLeftButtonDown">
 
         <Grid>
             <Grid.RowDefinitions>

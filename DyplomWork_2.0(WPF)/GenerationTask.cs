@@ -29,16 +29,19 @@ namespace DyplomWork_2._0_WPF_
         public static string apiKey = "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";
         public static string endpointURL = "https://api.openai.com/v1/completions";
         public static string imageGenerationURL = "https://api.openai.com/v1/images/generations";
-        public static string modelType = "gpt-3.5-turbo-instruct";
+        public static string modelText = "gpt-3.5-turbo-instruct";
+        public static string modelImage = "dall-e-3";
+        public static string imageSize = "1024x1024";
+        public static int numImages = 1;
         public static int maxTokens = 1000;
         public static double temperature = 1.0f;
 
         // Generating meal
-        public static async Task<string> OpenAIComplete(string apikey, string endpoint, string modeltype, int maxtokens, double temp, int age, string gender, int weight, int height, string country)
+        public static async Task<string> OpenAIComplete(string apikey, string endpoint, string modelText, int maxtokens, double temp, int age, string gender, int weight, int height, string country)
         {
             var requestbody = new
             {
-                model = modeltype,
+                model = modelText,
                 prompt = "I am from" + country + ". I am " + age + ". My gender is " + gender + ". My weight is " + weight + " kg, my height is " + height + " cm. " +
                 "Write a very healthy meal for a one week." +
                 "Use the Department of Health's recommendations for calculating calories for the day." +
@@ -69,11 +72,11 @@ namespace DyplomWork_2._0_WPF_
             return responseContent;
         }
         // Generating image
-        public static async Task<ImageGenerationResponse> OpenAIGenerateImage(string apikey, string prompt, string modelType, int numImages, string imageSize)
+        public static async Task<ImageGenerationResponse> OpenAIGenerateImage(string apikey, string prompt, string modelImage, int numImages, string imageSize)
         {
             var requestbody = new
             {
-                model = modelType,
+                model = modelImage,
                 prompt = prompt,
                 n = numImages,
                 size = imageSize
