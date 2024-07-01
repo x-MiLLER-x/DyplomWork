@@ -35,7 +35,7 @@ namespace DyplomWork_2._0_WPF_
         }
 
         //update user (update data user from db)
-        public User updateUsersDataFromDB(User us)
+        public User UpdateUsersDataFromDB(User us)
         {
             String loginUser = us.Login;
 
@@ -70,7 +70,7 @@ namespace DyplomWork_2._0_WPF_
         }
 
         //replace user (change user in db)
-        public bool try_saving_details(User us)
+        public bool TrySavingDetails(User us)
         {
             String loginUser = us.Login;
             String passUser = us.Pass;
@@ -171,7 +171,7 @@ namespace DyplomWork_2._0_WPF_
         }
 
         //get user
-        public bool try_autorization(User us)
+        public bool TryAutorization(User us)
         {
             String loginUser = us.Login;
             String passUser = us.Pass;
@@ -212,7 +212,7 @@ namespace DyplomWork_2._0_WPF_
         }
 
         //set user
-        public bool try_registration(User us)
+        public bool TryRegistration(User us)
         {
             String loginUser = us.Login;
             String passUser = us.Pass;

@@ -23,8 +23,8 @@
         </Border>
         <!-- Start: Button Close | Restore | Minimize -->
         <StackPanel Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft" Grid.RowSpan="2">
-            <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="btnClose_Click" Tag="IsCloseButton"/>
-            <Button x:Name="btnRestore" Margin="5,0" Click="btnRestore_Click">
+            <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="BtnCloseClick" Tag="IsCloseButton"/>
+            <Button x:Name="btnRestore" Margin="5,0" Click="BtnRestoreClick">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonsStyle}">
                         <Setter Property="Content" Value="{DynamicResource maximize}"/>
@@ -36,9 +36,10 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button x:Name="btnMinimize" Style="{DynamicResource IconButtonsStyle}" Content="{DynamicResource minimize}" Click="btnMinimize_Click"/>
+            <Button x:Name="btnMinimize" Style="{DynamicResource IconButtonsStyle}" Content="{DynamicResource minimize}" Click="BtnMinimizeClick"/>
         </StackPanel>
         <!-- End: Button Close | Restore | Minimize -->
+        
         <!-- Start: Reg part -->
         <Border MinWidth="400" Margin="15" Background="White" VerticalAlignment="Center" Padding="30" MaxWidth="550" CornerRadius="20">
             <Border.Effect>
@@ -49,14 +50,14 @@
 
                 <Grid Margin="0 0 0 20">
                     <Button HorizontalAlignment="Left" Content="Sign up" Style="{StaticResource DarkGreenButtonStyle}" Width="60"/>
-                    <Button HorizontalAlignment="Right" Content="Sign in" Click="Button_Window_Auth_Click" Style="{StaticResource DarkGreenFlatButtonStyle}"/>
+                    <Button HorizontalAlignment="Right" Content="Sign in" Click="ButtonWindowAuthClick" Style="{StaticResource DarkGreenFlatButtonStyle}"/>
                 </Grid>
 
                 <TextBox x:Name="textBoxLogin" materialDesign:HintAssist.Hint="Enter login" materialDesign:HintAssist.Foreground="Green" materialDesign:TextFieldAssist.UnderlineBrush="Green" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                 <PasswordBox x:Name="PassBox" materialDesign:HintAssist.Hint="Enter password" materialDesign:HintAssist.Foreground="Green" materialDesign:TextFieldAssist.UnderlineBrush="Green" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"/>
                 <PasswordBox x:Name="PassBox2" materialDesign:HintAssist.Hint="Repeat password" materialDesign:HintAssist.Foreground="Green" materialDesign:TextFieldAssist.UnderlineBrush="Green" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"/>
                 <TextBox x:Name="textBoxEmail" materialDesign:HintAssist.Hint="Email" materialDesign:HintAssist.Foreground="Green" materialDesign:TextFieldAssist.UnderlineBrush="Green" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                <Button Content="Sign up" Style="{StaticResource DarkGreenButtonStyle}" Margin="0 20" Click="Button_Reg_Click"/>
+                <Button Content="Sign up" Style="{StaticResource DarkGreenButtonStyle}" Margin="0 20" Click="ButtonRegClick"/>
             </StackPanel>
         </Border>
         <!-- End: Reg part -->

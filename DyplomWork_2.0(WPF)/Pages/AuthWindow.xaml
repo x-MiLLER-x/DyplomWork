@@ -20,8 +20,8 @@
         </Border>
         <!-- Start: Button Close | Restore | Minimize -->
         <StackPanel Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0" Height="30" Orientation="Horizontal" FlowDirection="RightToLeft" Grid.RowSpan="2">
-            <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="btnClose_Click" Tag="IsCloseButton"/>
-            <Button x:Name="btnRestore" Margin="5,0" Click="btnRestore_Click">
+            <Button x:Name="btnClose" Style="{StaticResource IconButtonsStyle}" Content="{DynamicResource close}" Click="BtnCloseClick" Tag="IsCloseButton"/>
+            <Button x:Name="btnRestore" Margin="5,0" Click="BtnRestoreClick">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonsStyle}">
                         <Setter Property="Content" Value="{DynamicResource maximize}"/>
@@ -33,7 +33,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button x:Name="btnMinimize" Style="{DynamicResource IconButtonsStyle}" Content="{DynamicResource minimize}" Click="btnMinimize_Click"/>
+            <Button x:Name="btnMinimize" Style="{DynamicResource IconButtonsStyle}" Content="{DynamicResource minimize}" Click="BtnMinimizeClick"/>
         </StackPanel>
         <!-- End: Button Close | Restore | Minimize -->
 
@@ -47,7 +47,7 @@
 
                 <Grid Margin="0 0 0 20">
                     <Button HorizontalAlignment="Left" Content="Sign in" Style="{StaticResource DarkGreenButtonStyle}" Width="60"/>
-                    <Button HorizontalAlignment="Right" Content="Sign up" Click="Button_Window_Reg_Click" Style="{StaticResource DarkGreenFlatButtonStyle}"/>
+                    <Button HorizontalAlignment="Right" Content="Sign up" Click="ButtonWindowRegClick" Style="{StaticResource DarkGreenFlatButtonStyle}"/>
                 </Grid>
 
                 <TextBox x:Name="textBoxLogin" 
@@ -60,7 +60,7 @@
                      materialDesign:TextFieldAssist.UnderlineBrush="Green"
                      materialDesign:HintAssist.Hint="Enter password"
                      Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
-                <Button Content="Sign in" Style="{StaticResource DarkGreenButtonStyle}" Margin="0 20" Click="Button_Auth_Click"/>
+                <Button Content="Sign in" Style="{StaticResource DarkGreenButtonStyle}" Margin="0 20" Click="ButtonAuthClick"/>
             </StackPanel>
         </Border>
         <!-- End: Auth part -->

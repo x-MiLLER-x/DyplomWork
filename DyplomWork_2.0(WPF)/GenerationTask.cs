@@ -33,11 +33,11 @@ namespace DyplomWork_2._0_WPF_
         public static string modelImage = "dall-e-3";
         public static string imageSize = "1024x1024";
         public static int numImages = 1;
-        public static int maxTokens = 1000;
+        public static int maxTokens = 1200;
         public static double temperature = 1.0f;
 
         // Generating meal
-        public static async Task<string> OpenAIComplete(string apikey, string endpoint, string modelText, int maxtokens, double temp, int age, string gender, int weight, int height, string country)
+        public static async Task<string> OpenAIGenerateAnswer(string apikey, string endpoint, string modelText, int maxtokens, double temp, int age, string gender, int weight, int height, string country)
         {
             var requestbody = new
             {

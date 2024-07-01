@@ -33,7 +33,7 @@ namespace DyplomWork_2._0_WPF_.Pages
         public ObservableCollection<Measurement> Weights { get; set; }
         public ObservableCollection<Measurement> Heights { get; set; }
 
-        public ObservableCollection<ImageItem> ImageItems { get; set; }
+        public ObservableCollection<GeneratedItem> GeneratedItems { get; set; }
 
         public MainWindow(User user)
         {
@@ -42,17 +42,17 @@ namespace DyplomWork_2._0_WPF_.Pages
             authUser = user;
 
             // Initializing an Image Collection
-            ImageItems = new ObservableCollection<ImageItem>();
+            GeneratedItems = new ObservableCollection<GeneratedItem>();
 
 
-            // Binding the ImageItems collection to ItemsControl in XAML
+            // Binding the GeneratedItems collection to ItemsControl in XAML
             DataContext = this;
 
-            comboBoxAgePageUser.SelectionChanged += ComboBox_SelectionChanged;
-            comboBoxGenderPageUser.SelectionChanged += ComboBox_SelectionChanged;
-            comboBoxWeightPageUser.SelectionChanged += ComboBox_SelectionChanged;
-            comboBoxHeightPageUser.SelectionChanged += ComboBox_SelectionChanged;
-            comboBoxCountryPageUser.SelectionChanged += ComboBox_SelectionChanged;
+            comboBoxAgePageUser.SelectionChanged += ComboBoxSelectionChanged;
+            comboBoxGenderPageUser.SelectionChanged += ComboBoxSelectionChanged;
+            comboBoxWeightPageUser.SelectionChanged += ComboBoxSelectionChanged;
+            comboBoxHeightPageUser.SelectionChanged += ComboBoxSelectionChanged;
+            comboBoxCountryPageUser.SelectionChanged += ComboBoxSelectionChanged;
 
             // Initialize collections. Ages, Weight, Height, Countries
             Ages = new ObservableCollection<Measurement>(Enumerable.Range(18, 103).Select(value => new Measurement { Value = value, Unit = "years" }));
@@ -87,23 +87,23 @@ namespace DyplomWork_2._0_WPF_.Pages
             comboBoxCountryPageUser.ItemsSource = countries;
 
             // Update data
-            Loaded += MainWindow_Loaded_Update;
+            Loaded += MainWindowLoadedUpdate;
             LoadImages();
         }
 
+        // Set the generated image and meal to an GeneratedItem object
         private async void LoadImages()
         {
-            ImageItems.Clear();
+            GeneratedItems.Clear();
             for (int i = 0; i < authUser.Images.Count; i++)
             {
                 string imageUrl = authUser.Images[i];
-                string meal = authUser.Meals.ElementAtOrDefault(i); // Получаем блюдо из коллекции Meals с тем же индексом
-
+                string meal = authUser.Meals.ElementAtOrDefault(i); // Getting a dish from the Meals collection with the same index
                 // Create a new BitmapImage object
-                BitmapImage bitmapImage = await Convert_url_to_bitmapImage(imageUrl);
+                BitmapImage bitmapImage = await ConvertUrlToBitmapImage(imageUrl);
                 if (bitmapImage != null)
                 {
-                    ImageItems.Add(new ImageItem { Image = bitmapImage, Meal = meal }); // Устанавливаем URL и блюдо для ImageItem
+                    GeneratedItems.Add(new GeneratedItem { Image = bitmapImage, Meal = meal }); // Setting the URL and dish for the GeneratedItem
                 }
                 else
                 {
@@ -111,6 +111,8 @@ namespace DyplomWork_2._0_WPF_.Pages
                 }
             }
         }
+
+        // Set the generated image to BackgroundImage
         private void SetBackgroundImage(ImageBrush targetBrush, string imageUrl)
         {
             // Create a new BitmapImage object
@@ -124,7 +126,7 @@ namespace DyplomWork_2._0_WPF_.Pages
         }
 
         // Window loading animation
-        private void Window_Loading_Animation(object sender, RoutedEventArgs e)
+        private void WindowLoadingAnimation(object sender, RoutedEventArgs e)
         {
             // Creating Animation
             DoubleAnimation translateYAnimation = new DoubleAnimation
@@ -145,9 +147,9 @@ namespace DyplomWork_2._0_WPF_.Pages
 
 
         // Update data of user from DB. Update data in comboBoxes
-        private void MainWindow_Loaded_Update(object sender, RoutedEventArgs e)
+        private void MainWindowLoadedUpdate(object sender, RoutedEventArgs e)
         {
-            authUser = db.updateUsersDataFromDB(authUser);
+            authUser = db.UpdateUsersDataFromDB(authUser);
 
             // Check if comboBoxSavingData flag is set to true
             if (authUser.ComboBoxSavingData)
@@ -194,7 +196,7 @@ namespace DyplomWork_2._0_WPF_.Pages
 
         // Start: Menu
         #region Menu
-        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        private void MenuButtonClick(object sender, RoutedEventArgs e)
         {
             Button clickedButton = (Button)sender;
 
@@ -207,7 +209,7 @@ namespace DyplomWork_2._0_WPF_.Pages
             // Set the background for the current button
             clickedButton.Background = new SolidColorBrush(Colors.White);
         }
-        private void savedMealButton_Click(object sender, RoutedEventArgs e)
+        private void SavedMealButtonClick(object sender, RoutedEventArgs e)
         {
             LoadImages();
             Button clickedButton = (Button)sender;
@@ -222,10 +224,10 @@ namespace DyplomWork_2._0_WPF_.Pages
             clickedButton.Background = new SolidColorBrush(Colors.White);
 
             // Update data from DB
-            authUser = db.updateUsersDataFromDB(authUser);
+            authUser = db.UpdateUsersDataFromDB(authUser);
 
         }
-        private void btnUser_Click(object sender, RoutedEventArgs e)
+        private void BtnUserClick(object sender, RoutedEventArgs e)
         {
             Button clickedButton = (Button)sender;
 
@@ -238,7 +240,7 @@ namespace DyplomWork_2._0_WPF_.Pages
             // Set the background for the current button
             clickedButton.Background = new SolidColorBrush(Colors.White);
 
-            authUser = db.updateUsersDataFromDB(authUser);
+            authUser = db.UpdateUsersDataFromDB(authUser);
 
             // Check if comboBoxSavingData flag is set to true
             if (authUser.ComboBoxSavingData)
@@ -247,7 +249,7 @@ namespace DyplomWork_2._0_WPF_.Pages
                 UpdateComboBoxesWithData(authUser);
             }
         }
-        private void btnGenerate_Click(object sender, RoutedEventArgs e)
+        private void BtnGenerateClick(object sender, RoutedEventArgs e)
         {
             Button clickedButton = (Button)sender;
 
@@ -260,7 +262,7 @@ namespace DyplomWork_2._0_WPF_.Pages
             // Set the background for the current button
             clickedButton.Background = new SolidColorBrush(Colors.White);
 
-            authUser = db.updateUsersDataFromDB(authUser);
+            authUser = db.UpdateUsersDataFromDB(authUser);
 
             // Check if comboBoxSavingData flag is set to true
             if (authUser.ComboBoxSavingData)
@@ -272,7 +274,7 @@ namespace DyplomWork_2._0_WPF_.Pages
 
         bool IsMaximized = false;
 
-        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void BorderMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ClickCount == 2)
             {
@@ -293,7 +295,7 @@ namespace DyplomWork_2._0_WPF_.Pages
             }
         }
 
-        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        private void LogoutButtonClick(object sender, RoutedEventArgs e)
         {
             Button clickedButton = (Button)sender;
 
@@ -315,7 +317,7 @@ namespace DyplomWork_2._0_WPF_.Pages
 
         // Start: Page 1
         #region page 1
-        private void LearnMore_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void LearnMoreMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -348,7 +350,7 @@ namespace DyplomWork_2._0_WPF_.Pages
         }
 
         // Generate meal
-        private async Task<string> Generate_Meal_Recomendations()
+        private async Task<string> GenerateMealRecomendations()
         {
             // Take the data from comboboxes
             Measurement selectedAge = comboBoxAge.SelectedItem as Measurement;
@@ -368,7 +370,7 @@ namespace DyplomWork_2._0_WPF_.Pages
             // Generate answer
             GenerationTask generationTask = new GenerationTask();
 
-            string response = await OpenAIComplete(apiKey, endpointURL, modelText, maxTokens, temperature, age, gender, weight, height, country);
+            string response = await OpenAIGenerateAnswer(apiKey, endpointURL, modelText, maxTokens, temperature, age, gender, weight, height, country);
 
             TextCompletionResponse question = JsonConvert.DeserializeObject<TextCompletionResponse>(response);
             string answer = question.Choices[0].Text;
@@ -419,7 +421,7 @@ namespace DyplomWork_2._0_WPF_.Pages
             try
             {
                 // Get the generated text
-                generatedMealText = await Generate_Meal_Recomendations();
+                generatedMealText = await GenerateMealRecomendations();
 
                 // Put the generated text in textGenerated field
                 textGenerated.Text = generatedMealText;
@@ -471,7 +473,7 @@ namespace DyplomWork_2._0_WPF_.Pages
         }
 
         // Substitution generated image
-        private Task<BitmapImage> Convert_url_to_bitmapImage(string imageUrl)
+        private Task<BitmapImage> ConvertUrlToBitmapImage(string imageUrl)
         {
             // Create a new BitmapImage object
             BitmapImage bitmapImage = new BitmapImage();
@@ -482,8 +484,8 @@ namespace DyplomWork_2._0_WPF_.Pages
             return Task.FromResult(bitmapImage);
         }
 
-        // buttonChangeData_Click action
-        private void buttonChangeData_Click(object sender, RoutedEventArgs e)
+        // ButtonChangeDataClick action
+        private void ButtonChangeDataClick(object sender, RoutedEventArgs e)
         {
             // Hide ScrollViewer and TextBlock
             blurBackground.Height = 350;
@@ -501,8 +503,8 @@ namespace DyplomWork_2._0_WPF_.Pages
             scrollViewer.Visibility = Visibility.Collapsed;
         }
 
-        // buttonSave_Click action
-        private void buttonSave_Click(object sender, RoutedEventArgs e)
+        // ButtonSaveClick action
+        private void ButtonSaveClick(object sender, RoutedEventArgs e)
         {
             authUser.AnySavedMeal = true;
             // Check if generatedMealText and generatedImageUrl are not null or empty
@@ -513,7 +515,7 @@ namespace DyplomWork_2._0_WPF_.Pages
                 authUser.Images.Add(generatedImageUrl);
 
                 // Save user details
-                if (db.try_saving_details(authUser))
+                if (db.TrySavingDetails(authUser))
                 {
                     MessageBox.Show("Saving data was successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     // Hide ScrollViewer and TextBlock
@@ -546,7 +548,7 @@ namespace DyplomWork_2._0_WPF_.Pages
 
         // Start: Page 3
         #region page 3
-        private void buttonPageUserSave_Click(object sender, RoutedEventArgs e)
+        private void ButtonPageUserSaveClick(object sender, RoutedEventArgs e)
         {
             // Check if all required data is selected
             bool isValid = true;
@@ -598,15 +600,15 @@ namespace DyplomWork_2._0_WPF_.Pages
 
             authUser.ComboBoxSavingData = true;
 
-            if (db.try_saving_details(authUser))
+            if (db.TrySavingDetails(authUser))
             {
-                Loaded += MainWindow_Loaded_Update;
+                Loaded += MainWindowLoadedUpdate;
                 MessageBox.Show("Saving data was successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             buttonSavePageUser.IsEnabled = false;
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateSaveButtonState();
         }
@@ -644,7 +646,7 @@ namespace DyplomWork_2._0_WPF_.Pages
 
         // Start: Page 4
         #region page 4
-        private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void ImageMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             // Получаем элемент System.Windows.Controls.Image, на который было нажатие
             System.Windows.Controls.Image clickedImage = (System.Windows.Controls.Image)sender;
@@ -652,11 +654,11 @@ namespace DyplomWork_2._0_WPF_.Pages
             // Получаем родительский элемент StackPanel
             StackPanel parentStackPanel = (StackPanel)clickedImage.Parent;
 
-            // Получаем DataContext StackPanel, чтобы получить ImageItem
-            ImageItem clickedImageItem = (ImageItem)parentStackPanel.DataContext;
+            // Получаем DataContext StackPanel, чтобы получить GeneratedItem
+            GeneratedItem clickedGeneratedItem = (GeneratedItem)parentStackPanel.DataContext;
 
             // Обновляем содержимое TextBox
-            savedMeals.Text = clickedImageItem.Meal;
+            savedMeals.Text = clickedGeneratedItem.Meal;
 
             // Прячем imagePanel и показываем scrollViewerSavedMeals
             imagePanel.Visibility = Visibility.Hidden;
@@ -665,7 +667,7 @@ namespace DyplomWork_2._0_WPF_.Pages
             buttonBack.Visibility = Visibility.Visible;
         }
     
-        private void buttonBack_Click(object sender, RoutedEventArgs e)
+        private void ButtonBackClick(object sender, RoutedEventArgs e)
         {
             // Прячем imagePanel и показываем scrollViewerSavedMeals
             imagePanel.Visibility = Visibility.Visible;

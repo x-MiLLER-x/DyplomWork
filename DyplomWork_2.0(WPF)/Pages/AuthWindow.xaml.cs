@@ -19,12 +19,12 @@ namespace DyplomWork_2._0_WPF_
             db = new DB();
 
             // Add PreviewKeyDown event handler
-            PreviewKeyDown += Window_PreviewKeyDown;
+            PreviewKeyDown += WindowPreviewKeyDown;
 
         }
 
         // Authorization attempt with button click
-        private void Button_Auth_Click(object sender, RoutedEventArgs e)
+        private void ButtonAuthClick(object sender, RoutedEventArgs e)
         {
             string login = textBoxLogin.Text.Trim();
             string pass = PassBox.Password.Trim();
@@ -59,7 +59,7 @@ namespace DyplomWork_2._0_WPF_
                 authUser.Pass = pass;
 
 
-                if (db.try_autorization(authUser))
+                if (db.TryAutorization(authUser))
                 {
                     Pages.MainWindow mainWindow = new MainWindow(authUser);
                     mainWindow.Show();
@@ -69,18 +69,18 @@ namespace DyplomWork_2._0_WPF_
         }
 
         // Authorization attempt by pressing ENTER
-        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void WindowPreviewKeyDown(object sender, KeyEventArgs e)
         {
             // Check if the Enter key was pressed
             if (e.Key == Key.Enter)
             {
                 // Call the method for authorization
-                Button_Auth_Click(sender, e);
+                ButtonAuthClick(sender, e);
             }
         }
 
         // Go to the registration window
-        private void Button_Window_Reg_Click(object sender, RoutedEventArgs e)
+        private void ButtonWindowRegClick(object sender, RoutedEventArgs e)
         {
             RegWindow regWindow = new RegWindow();   
             regWindow.Show();
@@ -88,12 +88,12 @@ namespace DyplomWork_2._0_WPF_
         }
 
         // Start: Button Close | Restore | Minimize 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
+        private void BtnCloseClick(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void btnRestore_Click(object sender, RoutedEventArgs e)
+        private void BtnRestoreClick(object sender, RoutedEventArgs e)
         {
             if (WindowState == WindowState.Normal)
                 WindowState = WindowState.Maximized;
@@ -101,7 +101,7 @@ namespace DyplomWork_2._0_WPF_
                 WindowState = WindowState.Normal;
         }
 
-        private void btnMinimize_Click(object sender, RoutedEventArgs e)
+        private void BtnMinimizeClick(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
