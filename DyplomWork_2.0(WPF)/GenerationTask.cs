@@ -26,7 +26,7 @@ namespace DyplomWork_2._0_WPF_
         }
 
         // Supporting Data
-        public static string apiKey = "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";
+        public static string apiKey = "****"; // INPUT YOUR APIKEY
         public static string endpointURL = "https://api.openai.com/v1/completions";
         public static string imageGenerationURL = "https://api.openai.com/v1/images/generations";
         public static string modelText = "gpt-3.5-turbo-instruct";

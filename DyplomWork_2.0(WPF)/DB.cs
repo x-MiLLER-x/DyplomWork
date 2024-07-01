@@ -9,7 +9,7 @@ namespace DyplomWork_2._0_WPF_
 {
     internal class DB
     {
-        private static string connectionString = "mongodb+srv://Yevtushenko:yevtushenkocluster@yevtushenkocluster.iklei6s.mongodb.net/";
+        private static string connectionString = "****"; // INPUT YOUR connectionString TO mongoDB
 
         private MongoClient client;
         private IMongoDatabase db;
